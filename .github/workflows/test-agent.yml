@@ -34,6 +34,11 @@ jobs:
         run: |
           [[ "$PR_HEAD" =~ ^[a-f0-9]{40}$ ]] || exit 1
           git fetch --no-tags origin "$PR_HEAD"
+      - name: Check configured Gemini model
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          AGENT_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.8-flash' }}
+        run: node agent/check-model.mjs
       - name: Analyze, generate, verify and repair once
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
