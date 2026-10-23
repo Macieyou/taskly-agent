@@ -28,12 +28,17 @@ export async function collect(base, head, destination) {
     await mkdir(path.dirname(path.join(destination, file)), { recursive: true });
     await writeFile(path.join(destination, file), content);
   }
-  const allowedTests = new Set([...files.keys()].filter(isTest));
+  const allowedTests = new Set();
   for (const name of names) {
     allowedTests.add(name.startsWith('frontend/') ? name.replace(/\.(tsx?)$/, '.test.$1')
       : `backend/tests/${path.posix.basename(name, '.ts')}.test.ts`);
   }
-  const contextFiles = [...files].filter(([name]) => /\.(ts|tsx|json)$/.test(name) && !/package-lock|openapi/.test(name));
+  const contextFiles = [...files].filter(([name]) => {
+    if (!/\.(ts|tsx|json)$/.test(name) || /package-lock|openapi|\.stories\.|\/\.storybook\//.test(name)) return false;
+    if (isTest(name)) return allowedTests.has(name);
+    // Source and fixtures supply real imports; unrelated test suites are omitted.
+    return true;
+  });
   // Changed files and nearby tests come first; do not silently truncate a review.
   contextFiles.sort(([a], [b]) => Number(names.includes(b)) - Number(names.includes(a)));
   const context = { changed: names, allowedTests: [...allowedTests], files: Object.fromEntries(contextFiles),
