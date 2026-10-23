@@ -9,6 +9,8 @@ import { propose } from './model.mjs';
 
 const output = path.resolve('agent-output');
 await mkdir(output, { recursive: true });
+// A failed rerun must never publish an artifact from an earlier successful run.
+await rm(path.join(output, 'tests.patch'), { force: true });
 const provider = process.env.AGENT_PROVIDER || 'gemini';
 const apiKey = provider === 'gemini' ? process.env.GEMINI_API_KEY : process.env.OPENAI_API_KEY;
 const report = { status: 'failed', head: process.env.PR_HEAD, base: process.env.PR_BASE,
