@@ -2,7 +2,7 @@ import { mkdir, readFile, writeFile, mkdtemp, rm, chmod } from 'node:fs/promises
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { collect, requireSha } from './context.mjs';
-import { skills, limits, validateProposal } from './policy.mjs';
+import { skills, limits, validateProposal, mergeRepair } from './policy.mjs';
 import { buildSandbox, verify, passes } from './sandbox.mjs';
 import { checked, command } from './process.mjs';
 import { propose } from './model.mjs';
@@ -40,7 +40,7 @@ try {
     for (let attempt = 1; attempt <= limits.attempts; attempt += 1) {
       console.log(`Agent attempt ${attempt}/${limits.attempts}`);
       const result = await propose({ instructions, context, feedback, model: report.model, apiKey, provider });
-      const proposal = validateProposal(result.proposal, allowedTests);
+      const proposal = validateProposal(mergeRepair(feedback?.previousProposal, result.proposal), allowedTests);
       report.attempts.push({ number: attempt, decision: proposal.decision, summary: proposal.summary,
         skills: proposal.skills, files: proposal.files.map((file) => file.path), usage: result.usage, responseId: result.responseId });
       report.summary = proposal.summary;

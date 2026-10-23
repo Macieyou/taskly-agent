@@ -42,3 +42,14 @@ export const proposalSchema = {
       required: ['path', 'content'], properties: { path: { type: 'string' }, content: { type: 'string' } } } },
   },
 };
+
+// Repairs replace named files, retaining successful edits in the other package.
+export function mergeRepair(previous, next) {
+  if (!previous || next?.decision !== 'edit' || !Array.isArray(next.files)) return next;
+  const files = new Map(previous.files.map(file => [file.path, file]));
+  // Duplicate entries remain visible to the validator rather than being silently collapsed.
+  const paths = next.files.map(file => file.path);
+  if (new Set(paths).size !== paths.length) throw new Error('Duplicate repair test path');
+  for (const file of next.files) files.set(file.path, file);
+  return { ...next, files: [...files.values()], skills: [...new Set([...previous.skills, ...(next.skills ?? [])])] };
+}
