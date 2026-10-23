@@ -31,3 +31,27 @@ test('rejects incomplete, refused and malformed model output', async () => {
     await assert.rejects(() => propose(args));
   }
 });
+
+test('Gemini separates policy from source and uses schema without credentials in URL', async () => {
+  globalThis.fetch = async (url, options) => {
+    assert.equal(url, 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent');
+    assert.equal(options.headers['x-goog-api-key'], args.apiKey);
+    const body = JSON.parse(options.body);
+    assert.equal(body.systemInstruction.parts[0].text, args.instructions);
+    assert.deepEqual(JSON.parse(body.contents[0].parts[0].text).untrustedRepository, args.context);
+    assert.equal(body.generationConfig.responseJsonSchema.type, 'object');
+    return Response.json({ candidates: [{ finishReason: 'STOP', content: { parts: [{ thought: true, text: 'ignore' }, { text: '{"decision":"skip"}' }] } }], usageMetadata: { totalTokenCount: 12 } });
+  };
+  assert.equal((await propose({ ...args, provider: 'gemini', model: 'gemini-3.8-flash' })).proposal.decision, 'skip');
+});
+test('Gemini fails closed on quota, truncation, refusal, malformed JSON and invalid model', async () => {
+  const input = { ...args, provider: 'gemini', model: 'gemini-3.8-flash' };
+  globalThis.fetch = async () => Response.json({ error: { status: 'RESOURCE_EXHAUSTED', message: 'sensitive' } }, { status: 429 });
+  await assert.rejects(() => propose(input), error => error.message.includes('RESOURCE_EXHAUSTED') && !error.message.includes('sensitive'));
+  for (const payload of [{ candidates: [{ finishReason: 'MAX_TOKENS' }] }, {}, { candidates: [{ finishReason: 'STOP', content: { parts: [{ text: 'invalid' }] } }] }]) {
+    globalThis.fetch = async () => Response.json(payload);
+    await assert.rejects(() => propose(input));
+  }
+  await assert.rejects(() => propose({ ...input, model: '../other' }));
+  await assert.rejects(() => propose({ ...input, provider: 'unexpected' }));
+});

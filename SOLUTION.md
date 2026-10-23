@@ -2,7 +2,7 @@
 
 ## Design
 
-The custom Node.js controller in `agent/run.mjs` reads the immutable PR diff, loads `agent/AGENT.md` and three reusable skills from `agent/skills/`, asks OpenAI for a structured test proposal, and verifies it. It can explicitly skip already-covered changes or repair a failed proposal once. The controller uses standard Node APIs, with no agent framework dependency: the state transitions and trust boundaries remain easy to audit.
+The custom Node.js controller in `agent/run.mjs` reads the immutable PR diff, loads `agent/AGENT.md` and three reusable skills from `agent/skills/`, asks Gemini for a structured test proposal, and verifies it. It can explicitly skip already-covered changes or repair a failed proposal once. The controller uses standard Node APIs, with no agent framework dependency: the state transitions and trust boundaries remain easy to audit.
 
 Skills are executable workflow inputs, not decorative documentation. `pr-test-review` guides test selection; `frontend-unit-tests` covers React, real query providers and MSW; `backend-unit-tests` covers Express, validation and Prisma IO. All three are supplied as trusted instructions, and each model decision records which it used. The agent only writes allowlisted test files. Product code, dependency manifests and coverage configuration are immutable during generation.
 
@@ -10,11 +10,11 @@ Skills are executable workflow inputs, not decorative documentation. `pr-test-re
 
 Use Node **24.22.1 LTS** (`.nvmrc`). On Windows with NVM: `nvm install 24.22.1`, then `nvm use 24.22.1`. Run `npm ci`, `npm run typecheck`, `npm run test:coverage`, and `npm run build` in each of `backend/` and `frontend/`. No PostgreSQL is required for unit tests. Run controller tests with `node --test agent/*.test.mjs`.
 
-Set the repository Actions secret `OPENAI_API_KEY` on GitHub. The optional repository variable `OPENAI_MODEL` defaults to `gpt-5.4-mini`; the API account must have model access and billing enabled. Open or update a non-draft PR from a branch in this repository. Changes to production TypeScript trigger generation automatically; documentation-only changes skip without a model call. Fork/Dependabot PRs run ordinary CI but do not receive model credentials.
+Set the repository Actions secret `GEMINI_API_KEY` on GitHub. The optional repository variable `GEMINI_MODEL` defaults to `gemini-3.8-flash`. Use a project on the free tier if no charges are desired; quotas and model availability apply. The workflow never enables billing or falls back to another provider. Open or update a non-draft PR from a branch in this repository. Changes to production TypeScript trigger generation automatically; documentation-only changes skip without a model call. Fork/Dependabot PRs run ordinary CI but do not receive model credentials.
 
 The Actions run provides `report.json`, execution logs, per-package before/after coverage and, only after verification, `tests.patch`. A single bot comment on the PR links to the run and is updated on subsequent runs. Review the patch and apply it on its recorded head with `git apply --check tests.patch`, then `git apply tests.patch`. No automatic commit, push or merge is performed.
 
-For local reproduction on a Linux Docker host: set `PR_BASE` and `PR_HEAD` to full fetched commit SHAs and `OPENAI_API_KEY` in the process environment, then run `node agent/run.mjs`. This runs tests inside Docker, not on the host. The complete controller is exercised by the GitHub example run; deterministic controller tests need neither Docker nor an API key.
+For local reproduction on a Linux Docker host: set `PR_BASE` and `PR_HEAD` to full fetched commit SHAs and `GEMINI_API_KEY` in the process environment, then run `node agent/run.mjs`. This runs tests inside Docker, not on the host. The complete controller is exercised by the GitHub example run; deterministic controller tests need neither Docker nor an API key.
 
 ## Security and reliability
 
@@ -37,7 +37,7 @@ Baseline improvements are reviewed tests authored during implementation. The exa
 
 ## Assumptions, limitations and production work
 
-Taskly is a small public demonstration repository. Sending its bounded source context to OpenAI is intentional (`store: false`). Existing repository members are trusted to propose changes; fork automation requires a separately designed approval policy. Containers reduce risk but are not a strong multi-tenant sandbox against kernel vulnerabilities. Dependency installation needs registry network access, though it has no API/GitHub secrets and disables install hooks.
+Taskly is a small public demonstration repository. Sending its bounded public source context to Gemini is intentional. Free-tier provider terms may allow data use for product improvement. An optional OpenAI adapter is retained for local use with `AGENT_PROVIDER=openai`, `AGENT_MODEL` and `OPENAI_API_KEY`; GitHub only injects the Gemini key. Existing repository members are trusted to propose changes; fork automation requires a separately designed approval policy. Containers reduce risk but are not a strong multi-tenant sandbox against kernel vulnerabilities. Dependency installation needs registry network access, though it has no API/GitHub secrets and disables install hooks.
 
 Passing tests and nondecreasing coverage do not prove good assertions. Model-produced patches always require human review; a malicious test could falsify its own assertions or coverage output. Existing broad mocks in upstream tests are retained; new tests exercise real application layers. Database unit tests mock Prisma IO and do not establish PostgreSQL integration correctness. UI coverage retains upstream design-system exclusions.
 
