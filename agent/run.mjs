@@ -2,7 +2,7 @@ import { mkdir, readFile, writeFile, mkdtemp, rm, chmod } from 'node:fs/promises
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { collect, requireSha } from './context.mjs';
-import { skills, limits, validateProposal, mergeRepair } from './policy.mjs';
+import { skills, limits, validateProposal, mergeRepair, changedTestFiles } from './policy.mjs';
 import { buildSandbox, verify, passes } from './sandbox.mjs';
 import { checked, command } from './process.mjs';
 import { propose } from './model.mjs';
@@ -48,6 +48,12 @@ try {
         // A failed repair is never reclassified as a successful skip.
         if (attempt > 1) throw new Error('Agent abandoned a failed proposal; manual review required');
         report.status = 'skipped'; break;
+      }
+      if (!changedTestFiles(proposal.files, files).length) {
+        if (attempt > 1) throw new Error('Repair produced no effective test changes');
+        report.status = 'skipped';
+        report.summary = 'Existing tests were returned unchanged apart from line endings or trailing whitespace; no new tests or patch published.';
+        break;
       }
       // Every attempt starts from the same PR snapshot, not from previous failed output.
       for (const file of allowedTests) {

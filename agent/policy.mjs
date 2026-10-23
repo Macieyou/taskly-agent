@@ -53,3 +53,8 @@ export function mergeRepair(previous, next) {
   for (const file of next.files) files.set(file.path, file);
   return { ...next, files: [...files.values()], skills: [...new Set([...previous.skills, ...(next.skills ?? [])])] };
 }
+
+export function changedTestFiles(proposalFiles, originals) {
+  const normalize = text => text.replace(/\r\n/g, '\n').trimEnd();
+  return proposalFiles.filter(file => !originals.has(file.path) || normalize(file.content) !== normalize(originals.get(file.path)));
+}
