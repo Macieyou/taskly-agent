@@ -1,0 +1,109 @@
+name: PR test agent
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review]
+permissions: {}
+concurrency:
+  group: test-agent-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  generate:
+    # Never expose a model secret to external contributors or Dependabot runs.
+    if: >-
+      !github.event.pull_request.draft &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.pull_request.author_association) &&
+      github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+    steps:
+      # Deliberately checkout BASE, never PR head. The head is parsed as data.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+      - name: Fetch immutable PR data
+        env:
+          PR_HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          [[ "$PR_HEAD" =~ ^[a-f0-9]{40}$ ]] || exit 1
+          git fetch --no-tags origin "$PR_HEAD"
+      - name: Analyze, generate, verify and repair once
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ vars.OPENAI_MODEL || 'gpt-5.4-mini' }}
+          PR_HEAD: ${{ github.event.pull_request.head.sha }}
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+        run: node agent/run.mjs
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: test-agent-${{ github.event.pull_request.number }}-${{ github.event.pull_request.head.sha }}
+          path: |
+            agent-output/report.json
+            agent-output/summary.md
+            agent-output/tests.patch
+          if-no-files-found: error
+          retention-days: 14
+  publish:
+    if: always() && !cancelled()
+    needs: generate
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: read
+      pull-requests: write
+    steps:
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        if: needs.generate.result != 'skipped'
+        continue-on-error: true
+        with:
+          name: test-agent-${{ github.event.pull_request.number }}-${{ github.event.pull_request.head.sha }}
+          path: report
+      - uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        env:
+          GENERATE_RESULT: ${{ needs.generate.result }}
+        with:
+          script: |
+            const fs = require('node:fs');
+            const pr = context.payload.pull_request;
+            const current = await github.rest.pulls.get({...context.repo, pull_number: pr.number});
+            if (current.data.head.sha !== pr.head.sha || current.data.state !== 'open') return;
+            const marker = '<!-- taskly-test-agent -->';
+            const url = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            let body = `${marker}\n## Unit-test agent\n\nHead: \`${pr.head.sha}\`\n\n`;
+            if (process.env.GENERATE_RESULT === 'skipped') {
+              body += 'Skipped: automatic model access is limited to non-draft, same-repository PRs by trusted contributors. Fork PRs still run ordinary CI.';
+            } else if (!fs.existsSync('report/report.json')) {
+              body += 'Failed before producing a report. No verified patch is available.';
+            } else {
+              const stat = fs.statSync('report/report.json');
+              if (stat.size > 500000) throw new Error('Report too large');
+              const report = JSON.parse(fs.readFileSync('report/report.json', 'utf8'));
+              if (report.head !== pr.head.sha) throw new Error('Report SHA mismatch');
+              const escape = value => String(value).replace(/[&<>`*_[\]@]/g, c => `&#${c.charCodeAt(0)};`);
+              body += `**${escape(report.status)}** — ${escape(report.summary).slice(0, 5000)}\n\n`;
+              body += `Model: ${escape(report.model)}. Attempts: ${report.attempts.length}.\n\n`;
+              for (const attempt of report.attempts) {
+                body += `- Attempt ${attempt.number}: ${escape(attempt.decision)}; skills: ${attempt.skills.map(escape).join(', ')}.\n`;
+              }
+              if (report.baseline) {
+                body += '\n| Package | Statements before | Statements after | Final tests + types |\n|---|---:|---:|---|\n';
+                for (const side of ['frontend', 'backend']) {
+                  const before = report.baseline[side], after = report.final?.[side];
+                  body += `| ${side} | ${before.coverage?.statements.pct ?? 'n/a'}% | ${after?.coverage?.statements.pct ?? 'n/a'}% | ${after ? (after.passed ? 'passed' : 'failed') : 'not run'} |\n`;
+                }
+              }
+              if (report.status === 'verified') body += '\nDownload the artifact below, review `tests.patch`, then apply it to this exact head with `git apply --check tests.patch` and `git apply tests.patch`. The agent does not push or merge.\n';
+            }
+            body += `\n\n[Run logs and downloadable report / verified patch](${url})`;
+            const comments = await github.paginate(github.rest.issues.listComments, {...context.repo, issue_number: pr.number, per_page: 100});
+            const previous = comments.find(c => c.user?.login === 'github-actions[bot]' && c.body?.startsWith(marker));
+            if (previous) await github.rest.issues.updateComment({...context.repo, comment_id: previous.id, body});
+            else await github.rest.issues.createComment({...context.repo, issue_number: pr.number, body});

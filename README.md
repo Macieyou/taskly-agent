@@ -1,5 +1,11 @@
 # Taskly App Node
 
+Taskly includes a custom unit-test agent and an automatic GitHub PR workflow.
+See [SOLUTION.md](SOLUTION.md) for the architecture, security boundaries, reusable
+skills, setup and limitations. Use Node **24.22.1 LTS** (`.nvmrc`).
+
+The original application is preserved from [cf-recruitment/taskly-app-node](https://github.com/cf-recruitment/taskly-app-node).
+
 ## Setup
 
 ```sh

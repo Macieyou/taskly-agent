@@ -32,3 +32,42 @@ it.each([{ title: '  ' }, { title: 'x'.repeat(121) }, { title: 'Task', priority:
     expect(repository.create).not.toHaveBeenCalled();
   },
 );
+
+it.each(['0', '-1', 'abc', '1.5', '9007199254740992'])('rejects invalid IDs: %s', async (id) => {
+  const { app, repository } = setup();
+  expect((await request(app).get(`/api/todos/${id}`)).status).toBe(422);
+  expect(repository.get).not.toHaveBeenCalled();
+});
+it('gets an existing task and returns 404 for a missing task', async () => {
+  const { app, repository } = setup();
+  repository.get.mockResolvedValueOnce(todo).mockResolvedValueOnce(null);
+  expect((await request(app).get('/api/todos/1')).body).toEqual(todo);
+  expect((await request(app).get('/api/todos/2')).status).toBe(404);
+  expect(repository.get).toHaveBeenCalledWith(2);
+});
+it('updates only validated fields and returns the saved task', async () => {
+  const { app, repository } = setup();
+  repository.update.mockResolvedValue({ ...todo, completed: true });
+  const response = await request(app).patch('/api/todos/1').send({ completed: true });
+  expect(response.status).toBe(200);
+  expect(response.body.completed).toBe(true);
+  expect(repository.update).toHaveBeenCalledWith(1, { completed: true });
+});
+it('rejects invalid updates before persistence', async () => {
+  const { app, repository } = setup();
+  expect((await request(app).patch('/api/todos/1').send({ title: '' })).status).toBe(422);
+  expect(repository.update).not.toHaveBeenCalled();
+});
+it('returns 404 when updating a missing task', async () => {
+  const { app, repository } = setup();
+  repository.update.mockResolvedValue(null);
+  expect((await request(app).patch('/api/todos/1').send({ title: 'Changed' })).status).toBe(404);
+});
+it('deletes a task with an empty response, then reports missing resources', async () => {
+  const { app, repository } = setup();
+  repository.delete.mockResolvedValueOnce(true).mockResolvedValueOnce(false);
+  const deleted = await request(app).delete('/api/todos/1');
+  expect(deleted.status).toBe(204);
+  expect(deleted.text).toBe('');
+  expect((await request(app).delete('/api/todos/1')).status).toBe(404);
+});
