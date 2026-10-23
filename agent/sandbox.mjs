@@ -24,7 +24,7 @@ cp coverage/coverage-summary.json /results/coverage.json`;
     try {
       const result = await command('docker', ['run', '--name', name, '--rm', '--network=none', '--read-only',
         '--cap-drop=ALL', '--security-opt=no-new-privileges', '--pids-limit=128', '--memory=4g', '--cpus=2',
-        '--tmpfs=/tmp:rw,size=2147483648,mode=1777',
+        '--tmpfs=/tmp:rw,exec,size=2147483648,mode=1777',
         '--mount', `type=bind,source=${workspace},target=/source,readonly`,
         '--mount', `type=bind,source=${out},target=/results`,
         '-e', 'DATABASE_URL=postgresql://test:test@localhost:5432/test', '-e', 'CI=true',
