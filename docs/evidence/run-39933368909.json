@@ -1,0 +1,199 @@
+{
+  "status": "verified",
+  "head": "d9ff6dcd4287dc8091508f73f3f98b697dc9c3e7",
+  "base": "1d73c04f9ffa74882b7336d2d5ab84fb41117509",
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "skillsLoaded": [
+    "pr-test-review",
+    "frontend-unit-tests",
+    "backend-unit-tests"
+  ],
+  "attempts": [
+    {
+      "number": 1,
+      "decision": "edit",
+      "summary": "Added unit tests for the backend summary logic and the frontend TodoSummary component to ensure correct calculation and display of task progress metrics.",
+      "skills": [
+        "backend-unit-tests",
+        "frontend-unit-tests"
+      ],
+      "files": [
+        "backend/tests/summary.test.ts",
+        "frontend/src/features/todos/components/TodoSummary.test.tsx"
+      ],
+      "usage": {
+        "promptTokenCount": 37137,
+        "candidatesTokenCount": 698,
+        "totalTokenCount": 37835,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 37137
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "responseId": "YSvbauSbJKfK-8YPpP3KgQ4"
+    }
+  ],
+  "summary": "Added unit tests for the backend summary logic and the frontend TodoSummary component to ensure correct calculation and display of task progress metrics.",
+  "baseline": {
+    "backend": {
+      "passed": true,
+      "exitCode": 0,
+      "coverage": {
+        "lines": {
+          "total": 112,
+          "covered": 86,
+          "skipped": 0,
+          "pct": 76.78
+        },
+        "statements": {
+          "total": 134,
+          "covered": 100,
+          "skipped": 0,
+          "pct": 74.62
+        },
+        "functions": {
+          "total": 35,
+          "covered": 24,
+          "skipped": 0,
+          "pct": 68.57
+        },
+        "branches": {
+          "total": 50,
+          "covered": 45,
+          "skipped": 0,
+          "pct": 90
+        },
+        "branchesTrue": {
+          "total": 0,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 100
+        }
+      },
+      "log": "Loaded Prisma config from prisma.config.ts.\n\nPrisma schema loaded from prisma/schema.prisma.\n\n✔ Generated Prisma Client (7.10.1) to ./src/generated/prisma in 18ms\n\n\n\u001b[1m\u001b[30m\u001b[46m RUN \u001b[49m\u001b[39m\u001b[22m \u001b[36mv4.1.12 \u001b[39m\u001b[90m/tmp/app\u001b[39m\n      \u001b[2mCoverage enabled with \u001b[22m\u001b[33mv8\u001b[39m\n\n \u001b[32m✓\u001b[39m tests/repository.test.ts \u001b[2m(\u001b[22m\u001b[2m11 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 15\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/router.test.ts \u001b[2m(\u001b[22m\u001b[2m16 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 59\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/factory.test.ts \u001b[2m(\u001b[22m\u001b[2m7 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 51\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/validators.test.ts \u001b[2m(\u001b[22m\u001b[2m27 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 9\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/config.test.ts \u001b[2m(\u001b[22m\u001b[2m8 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 4\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/mappers.test.ts \u001b[2m(\u001b[22m\u001b[2m4 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 6\u001b[2mms\u001b[22m\u001b[39m\n\n\u001b[2m Test Files \u001b[22m \u001b[1m\u001b[32m6 passed\u001b[39m\u001b[22m\u001b[90m (6)\u001b[39m\n\u001b[2m      Tests \u001b[22m \u001b[1m\u001b[32m73 passed\u001b[39m\u001b[22m\u001b[90m (73)\u001b[39m\n\u001b[2m   Start at \u001b[22m 09:39:30\n\u001b[2m   Duration \u001b[22m 1.24s\u001b[2m (transform 84ms, setup 0ms, import 498ms, tests 145ms, environment 0ms)\u001b[22m\n\n\u001b[34m % \u001b[39m\u001b[2mCoverage report from \u001b[22m\u001b[33mv8\u001b[39m\n-------------------|---------|----------|---------|---------|-------------------\nFile               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s \n-------------------|---------|----------|---------|---------|-------------------\nAll files          |   74.62 |       90 |   68.57 |   76.78 |                   \n src               |      84 |    92.85 |      80 |      85 |                   \n  factory.ts       |   95.45 |    92.85 |     100 |     100 | 20                \n  main.ts          |       0 |      100 |       0 |       0 | 3-5               \n src/api           |     100 |      100 |     100 |     100 |                   \n  health.ts        |     100 |      100 |     100 |     100 |                   \n src/core          |   39.53 |       75 |   22.22 |   41.66 |                   \n  config.ts        |     100 |      100 |     100 |     100 |                   \n  database.ts      |   66.66 |      100 |      50 |   66.66 | 12                \n  lifespan.ts      |       0 |        0 |       0 |       0 | 8-31              \n ...features/todos |   93.44 |    92.85 |   84.21 |   96.07 |                   \n  mappers.ts       |     100 |      100 |     100 |     100 |                   \n  repository.ts    |     100 |      100 |     100 |     100 |                   \n  router.ts        |   97.05 |      100 |    87.5 |     100 |                   \n  summary.ts       |       0 |        0 |       0 |       0 | 5-6               \n  validators.ts    |     100 |      100 |     100 |     100 |                   \n-------------------|---------|----------|---------|---------|-------------------\n"
+    },
+    "frontend": {
+      "passed": true,
+      "exitCode": 0,
+      "coverage": {
+        "lines": {
+          "total": 168,
+          "covered": 163,
+          "skipped": 0,
+          "pct": 97.02
+        },
+        "statements": {
+          "total": 185,
+          "covered": 176,
+          "skipped": 0,
+          "pct": 95.13
+        },
+        "functions": {
+          "total": 91,
+          "covered": 85,
+          "skipped": 0,
+          "pct": 93.4
+        },
+        "branches": {
+          "total": 141,
+          "covered": 125,
+          "skipped": 0,
+          "pct": 88.65
+        },
+        "branchesTrue": {
+          "total": 0,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 100
+        }
+      },
+      "log": "\n\u001b[1m\u001b[30m\u001b[46m RUN \u001b[49m\u001b[39m\u001b[22m \u001b[36mv4.1.12 \u001b[39m\u001b[90m/tmp/app\u001b[39m\n      \u001b[2mCoverage enabled with \u001b[22m\u001b[33mv8\u001b[39m\n\n \u001b[32m✓\u001b[39m src/features/todos/TodosPage.integration.test.tsx \u001b[2m(\u001b[22m\u001b[2m4 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[33m 815\u001b[2mms\u001b[22m\u001b[39m\n   \u001b[33m\u001b[2m✓\u001b[22m\u001b[39m creates, edits, completes and deletes tasks through real components and query hooks \u001b[33m 604\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/hooks/mutations.test.tsx \u001b[2m(\u001b[22m\u001b[2m9 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 288\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/utils/todos.boundaries.test.ts \u001b[2m(\u001b[22m\u001b[2m13 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 15\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/TodosPage.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 64\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/lib/http.test.ts \u001b[2m(\u001b[22m\u001b[2m8 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 9\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodoEditor.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 67\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodoForm.test.tsx \u001b[2m(\u001b[22m\u001b[2m2 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 207\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/DeleteTodoDialog.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 68\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodoFilters.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 99\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/components/SuccessNotice.test.tsx \u001b[2m(\u001b[22m\u001b[2m2 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 25\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodoItem.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 81\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/api/todos.test.ts \u001b[2m(\u001b[22m\u001b[2m2 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 4\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodoList.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 48\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/utils/todos.test.ts \u001b[2m(\u001b[22m\u001b[2m2 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 3\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/components/ApplicationHeader.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 49\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodosHeader.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 78\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/hooks/useTodoFilters.test.ts \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 17\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/App.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 50\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/hooks/useNotice.test.ts \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 12\u001b[2mms\u001b[22m\u001b[39m\n\n\u001b[2m Test Files \u001b[22m \u001b[1m\u001b[32m19 passed\u001b[39m\u001b[22m\u001b[90m (19)\u001b[39m\n\u001b[2m      Tests \u001b[22m \u001b[1m\u001b[32m53 passed\u001b[39m\u001b[22m\u001b[90m (53)\u001b[39m\n\u001b[2m   Start at \u001b[22m 09:39:35\n\u001b[2m   Duration \u001b[22m 9.86s\u001b[2m (transform 292ms, setup 1.20s, import 869ms, tests 2.00s, environment 3.52s)\u001b[22m\n\n\u001b[34m % \u001b[39m\u001b[2mCoverage report from \u001b[22m\u001b[33mv8\u001b[39m\n-------------------|---------|----------|---------|---------|-------------------\nFile               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s \n-------------------|---------|----------|---------|---------|-------------------\nAll files          |   95.13 |    88.65 |    93.4 |   97.02 |                   \n src               |     100 |      100 |     100 |     100 |                   \n  App.tsx          |     100 |      100 |     100 |     100 |                   \n src/app           |     100 |      100 |     100 |     100 |                   \n  AppProviders.tsx |     100 |      100 |     100 |     100 |                   \n src/components    |     100 |      100 |     100 |     100 |                   \n  ...ionHeader.tsx |     100 |      100 |     100 |     100 |                   \n  ...essNotice.tsx |     100 |      100 |     100 |     100 |                   \n ...features/todos |   85.18 |       90 |   72.72 |   88.46 |                   \n  TodosPage.tsx    |   85.18 |       90 |   72.72 |   88.46 | 83,94,105         \n ...ures/todos/api |     100 |      100 |     100 |     100 |                   \n  todos.ts         |     100 |      100 |     100 |     100 |                   \n ...dos/components |   94.02 |       80 |      95 |   96.82 |                   \n  ...odoDialog.tsx |   88.88 |       75 |     100 |     100 | 19,42             \n  TodoEditor.tsx   |   91.66 |    93.75 |     100 |     100 | 24                \n  ...mptyState.tsx |     100 |      100 |     100 |     100 |                   \n  TodoFilters.tsx  |     100 |      100 |     100 |     100 |                   \n  TodoForm.tsx     |   88.23 |    63.63 |   77.77 |    87.5 | 67,91             \n  TodoItem.tsx     |     100 |    57.14 |     100 |     100 | 32,47-51          \n  TodoList.tsx     |     100 |      100 |     100 |     100 |                   \n  TodoSummary.tsx  |     100 |      100 |     100 |     100 |                   \n  TodosHeader.tsx  |     100 |      100 |     100 |     100 |                   \n ...es/todos/hooks |     100 |      100 |     100 |     100 |                   \n  ...doMutation.ts |     100 |      100 |     100 |     100 |                   \n  ...doMutation.ts |     100 |      100 |     100 |     100 |                   \n  ...odoFilters.ts |     100 |      100 |     100 |     100 |                   \n  useTodosBusy.ts  |     100 |      100 |     100 |     100 |                   \n  useTodosQuery.ts |     100 |      100 |     100 |     100 |                   \n  ...doMutation.ts |     100 |      100 |     100 |     100 |                   \n ...es/todos/utils |     100 |    97.22 |     100 |     100 |                   \n  todos.ts         |     100 |    97.22 |     100 |     100 | 52                \n src/hooks         |    90.9 |      100 |      80 |     100 |                   \n  useNotice.ts     |    90.9 |      100 |      80 |     100 |                   \n src/lib           |     100 |      100 |     100 |     100 |                   \n  http.ts          |     100 |      100 |     100 |     100 |                   \n-------------------|---------|----------|---------|---------|-------------------\n"
+    }
+  },
+  "final": {
+    "backend": {
+      "passed": true,
+      "exitCode": 0,
+      "coverage": {
+        "lines": {
+          "total": 112,
+          "covered": 88,
+          "skipped": 0,
+          "pct": 78.57
+        },
+        "statements": {
+          "total": 134,
+          "covered": 103,
+          "skipped": 0,
+          "pct": 76.86
+        },
+        "functions": {
+          "total": 35,
+          "covered": 26,
+          "skipped": 0,
+          "pct": 74.28
+        },
+        "branches": {
+          "total": 50,
+          "covered": 47,
+          "skipped": 0,
+          "pct": 94
+        },
+        "branchesTrue": {
+          "total": 0,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 100
+        }
+      },
+      "log": "Loaded Prisma config from prisma.config.ts.\n\nPrisma schema loaded from prisma/schema.prisma.\n\n✔ Generated Prisma Client (7.10.1) to ./src/generated/prisma in 17ms\n\n\n\u001b[1m\u001b[30m\u001b[46m RUN \u001b[49m\u001b[39m\u001b[22m \u001b[36mv4.1.12 \u001b[39m\u001b[90m/tmp/app\u001b[39m\n      \u001b[2mCoverage enabled with \u001b[22m\u001b[33mv8\u001b[39m\n\n \u001b[32m✓\u001b[39m tests/repository.test.ts \u001b[2m(\u001b[22m\u001b[2m11 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 15\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/router.test.ts \u001b[2m(\u001b[22m\u001b[2m16 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 61\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/factory.test.ts \u001b[2m(\u001b[22m\u001b[2m7 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 48\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/validators.test.ts \u001b[2m(\u001b[22m\u001b[2m27 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 10\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/config.test.ts \u001b[2m(\u001b[22m\u001b[2m8 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 4\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/summary.test.ts \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 2\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/mappers.test.ts \u001b[2m(\u001b[22m\u001b[2m4 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 6\u001b[2mms\u001b[22m\u001b[39m\n\n\u001b[2m Test Files \u001b[22m \u001b[1m\u001b[32m7 passed\u001b[39m\u001b[22m\u001b[90m (7)\u001b[39m\n\u001b[2m      Tests \u001b[22m \u001b[1m\u001b[32m74 passed\u001b[39m\u001b[22m\u001b[90m (74)\u001b[39m\n\u001b[2m   Start at \u001b[22m 09:39:51\n\u001b[2m   Duration \u001b[22m 1.36s\u001b[2m (transform 87ms, setup 0ms, import 520ms, tests 147ms, environment 0ms)\u001b[22m\n\n\u001b[34m % \u001b[39m\u001b[2mCoverage report from \u001b[22m\u001b[33mv8\u001b[39m\n-------------------|---------|----------|---------|---------|-------------------\nFile               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s \n-------------------|---------|----------|---------|---------|-------------------\nAll files          |   76.86 |       94 |   74.28 |   78.57 |                   \n src               |      84 |    92.85 |      80 |      85 |                   \n  factory.ts       |   95.45 |    92.85 |     100 |     100 | 20                \n  main.ts          |       0 |      100 |       0 |       0 | 3-5               \n src/api           |     100 |      100 |     100 |     100 |                   \n  health.ts        |     100 |      100 |     100 |     100 |                   \n src/core          |   39.53 |       75 |   22.22 |   41.66 |                   \n  config.ts        |     100 |      100 |     100 |     100 |                   \n  database.ts      |   66.66 |      100 |      50 |   66.66 | 12                \n  lifespan.ts      |       0 |        0 |       0 |       0 | 8-31              \n ...features/todos |   98.36 |      100 |   94.73 |     100 |                   \n  mappers.ts       |     100 |      100 |     100 |     100 |                   \n  repository.ts    |     100 |      100 |     100 |     100 |                   \n  router.ts        |   97.05 |      100 |    87.5 |     100 |                   \n  summary.ts       |     100 |      100 |     100 |     100 |                   \n  validators.ts    |     100 |      100 |     100 |     100 |                   \n-------------------|---------|----------|---------|---------|-------------------\n"
+    },
+    "frontend": {
+      "passed": true,
+      "exitCode": 0,
+      "coverage": {
+        "lines": {
+          "total": 168,
+          "covered": 163,
+          "skipped": 0,
+          "pct": 97.02
+        },
+        "statements": {
+          "total": 185,
+          "covered": 176,
+          "skipped": 0,
+          "pct": 95.13
+        },
+        "functions": {
+          "total": 91,
+          "covered": 85,
+          "skipped": 0,
+          "pct": 93.4
+        },
+        "branches": {
+          "total": 141,
+          "covered": 125,
+          "skipped": 0,
+          "pct": 88.65
+        },
+        "branchesTrue": {
+          "total": 0,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 100
+        }
+      },
+      "log": "\n\u001b[1m\u001b[30m\u001b[46m RUN \u001b[49m\u001b[39m\u001b[22m \u001b[36mv4.1.12 \u001b[39m\u001b[90m/tmp/app\u001b[39m\n      \u001b[2mCoverage enabled with \u001b[22m\u001b[33mv8\u001b[39m\n\n \u001b[32m✓\u001b[39m src/features/todos/TodosPage.integration.test.tsx \u001b[2m(\u001b[22m\u001b[2m4 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[33m 816\u001b[2mms\u001b[22m\u001b[39m\n   \u001b[33m\u001b[2m✓\u001b[22m\u001b[39m creates, edits, completes and deletes tasks through real components and query hooks \u001b[33m 604\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/hooks/mutations.test.tsx \u001b[2m(\u001b[22m\u001b[2m9 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 286\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/utils/todos.boundaries.test.ts \u001b[2m(\u001b[22m\u001b[2m13 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 15\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/TodosPage.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 63\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/lib/http.test.ts \u001b[2m(\u001b[22m\u001b[2m8 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 9\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodoEditor.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 71\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodoForm.test.tsx \u001b[2m(\u001b[22m\u001b[2m2 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 197\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/DeleteTodoDialog.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 66\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodoFilters.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 101\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/components/SuccessNotice.test.tsx \u001b[2m(\u001b[22m\u001b[2m2 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 26\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodoItem.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 82\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/api/todos.test.ts \u001b[2m(\u001b[22m\u001b[2m2 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 4\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodoList.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 44\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/utils/todos.test.ts \u001b[2m(\u001b[22m\u001b[2m2 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 3\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/components/ApplicationHeader.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 49\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodosHeader.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 77\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodoSummary.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 27\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/hooks/useTodoFilters.test.ts \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 20\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/App.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 48\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/hooks/useNotice.test.ts \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 12\u001b[2mms\u001b[22m\u001b[39m\n\n\u001b[2m Test Files \u001b[22m \u001b[1m\u001b[32m20 passed\u001b[39m\u001b[22m\u001b[90m (20)\u001b[39m\n\u001b[2m      Tests \u001b[22m \u001b[1m\u001b[32m54 passed\u001b[39m\u001b[22m\u001b[90m (54)\u001b[39m\n\u001b[2m   Start at \u001b[22m 09:39:55\n\u001b[2m   Duration \u001b[22m 10.43s\u001b[2m (transform 304ms, setup 1.26s, import 956ms, tests 2.02s, environment 3.76s)\u001b[22m\n\n\u001b[34m % \u001b[39m\u001b[2mCoverage report from \u001b[22m\u001b[33mv8\u001b[39m\n-------------------|---------|----------|---------|---------|-------------------\nFile               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s \n-------------------|---------|----------|---------|---------|-------------------\nAll files          |   95.13 |    88.65 |    93.4 |   97.02 |                   \n src               |     100 |      100 |     100 |     100 |                   \n  App.tsx          |     100 |      100 |     100 |     100 |                   \n src/app           |     100 |      100 |     100 |     100 |                   \n  AppProviders.tsx |     100 |      100 |     100 |     100 |                   \n src/components    |     100 |      100 |     100 |     100 |                   \n  ...ionHeader.tsx |     100 |      100 |     100 |     100 |                   \n  ...essNotice.tsx |     100 |      100 |     100 |     100 |                   \n ...features/todos |   85.18 |       90 |   72.72 |   88.46 |                   \n  TodosPage.tsx    |   85.18 |       90 |   72.72 |   88.46 | 83,94,105         \n ...ures/todos/api |     100 |      100 |     100 |     100 |                   \n  todos.ts         |     100 |      100 |     100 |     100 |                   \n ...dos/components |   94.02 |       80 |      95 |   96.82 |                   \n  ...odoDialog.tsx |   88.88 |       75 |     100 |     100 | 19,42             \n  TodoEditor.tsx   |   91.66 |    93.75 |     100 |     100 | 24                \n  ...mptyState.tsx |     100 |      100 |     100 |     100 |                   \n  TodoFilters.tsx  |     100 |      100 |     100 |     100 |                   \n  TodoForm.tsx     |   88.23 |    63.63 |   77.77 |    87.5 | 67,91             \n  TodoItem.tsx     |     100 |    57.14 |     100 |     100 | 32,47-51          \n  TodoList.tsx     |     100 |      100 |     100 |     100 |                   \n  TodoSummary.tsx  |     100 |      100 |     100 |     100 |                   \n  TodosHeader.tsx  |     100 |      100 |     100 |     100 |                   \n ...es/todos/hooks |     100 |      100 |     100 |     100 |                   \n  ...doMutation.ts |     100 |      100 |     100 |     100 |                   \n  ...doMutation.ts |     100 |      100 |     100 |     100 |                   \n  ...odoFilters.ts |     100 |      100 |     100 |     100 |                   \n  useTodosBusy.ts  |     100 |      100 |     100 |     100 |                   \n  useTodosQuery.ts |     100 |      100 |     100 |     100 |                   \n  ...doMutation.ts |     100 |      100 |     100 |     100 |                   \n ...es/todos/utils |     100 |    97.22 |     100 |     100 |                   \n  todos.ts         |     100 |    97.22 |     100 |     100 | 52                \n src/hooks         |    90.9 |      100 |      80 |     100 |                   \n  useNotice.ts     |    90.9 |      100 |      80 |     100 |                   \n src/lib           |     100 |      100 |     100 |     100 |                   \n  http.ts          |     100 |      100 |     100 |     100 |                   \n-------------------|---------|----------|---------|---------|-------------------\n"
+    }
+  },
+  "changed": [
+    "backend/src/features/todos/router.ts",
+    "backend/src/features/todos/summary.ts",
+    "frontend/src/features/todos/TodosPage.tsx",
+    "frontend/src/features/todos/components/TodoSummary.tsx"
+  ]
+}
