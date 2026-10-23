@@ -45,3 +45,15 @@ test('verification rejects failures and coverage regressions in either package',
   assert.equal(passes({ ...baseline, backend: { passed: false } }, baseline), false);
   assert.equal(passes({ ...baseline, frontend: { passed: true, coverage: { ...coverage, branches: { pct: 79 } } } }, baseline), false);
 });
+
+test('repair retains earlier files while replacing corrected content', async () => {
+  const { mergeRepair } = await import('./policy.mjs');
+  const previous = { decision: 'edit', skills: ['backend-unit-tests'], files: [{ path: 'backend/tests/summary.test.ts', content: 'backend' }, { path: 'frontend/src/a.test.ts', content: 'old' }] };
+  const next = { decision: 'edit', skills: ['frontend-unit-tests'], files: [{ path: 'frontend/src/a.test.ts', content: 'fixed' }] };
+  const merged = mergeRepair(previous, next);
+  assert.deepEqual(merged.files.map(file => file.content), ['backend', 'fixed']);
+  assert.deepEqual(merged.skills, ['backend-unit-tests', 'frontend-unit-tests']);
+  assert.equal(previous.files[1].content, 'old');
+  assert.throws(() => mergeRepair(previous, { ...next, files: [...next.files, ...next.files] }), /Duplicate/);
+  assert.equal(mergeRepair(previous, { decision: 'skip' }).decision, 'skip');
+});
