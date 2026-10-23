@@ -6,6 +6,7 @@ description: Create regression tests for Taskly React components, hooks and brow
 Read the changed implementation, its consumers, closest tests and fixture. Identify user-visible behavior and boundary cases before choosing assertions.
 
 - Co-locate `.test.ts` or `.test.tsx` under `frontend/src`. Use `.tsx` when the wrapper contains JSX.
+- Frontend uses bundler resolution: follow existing extensionless imports. Do not apply backend NodeNext import conventions here. Test empty and non-empty component data, accessible names and displayed values, not only component existence.
 - Pure functions: table-driven boundaries, immutable input, sorting ties and frozen time for calendar behavior.
 - Hooks: `renderHook`, real providers, a fresh QueryClient with retries disabled, cache cleanup; await state with `waitFor`.
 - Components: real design-system ThemeProvider, accessible role/label queries, `userEvent.setup()`. Test keyboard and error/retry behavior when relevant. Do not mock owned hooks or components.

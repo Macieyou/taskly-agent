@@ -14,7 +14,7 @@ await rm(path.join(output, 'tests.patch'), { force: true });
 const provider = process.env.AGENT_PROVIDER || 'gemini';
 const apiKey = provider === 'gemini' ? process.env.GEMINI_API_KEY : process.env.OPENAI_API_KEY;
 const report = { status: 'failed', head: process.env.PR_HEAD, base: process.env.PR_BASE,
-  provider, model: process.env.AGENT_MODEL || (provider === 'gemini' ? 'gemini-3.8-flash' : 'gpt-5.4-mini'), skillsLoaded: skills, attempts: [],
+  provider, model: process.env.AGENT_MODEL || (provider === 'gemini' ? 'gemini-3.1-flash-lite' : 'gpt-5.4-mini'), skillsLoaded: skills, attempts: [],
   summary: '', baseline: null, final: null };
 let workspace; let image;
 try {
