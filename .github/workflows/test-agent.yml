@@ -37,13 +37,13 @@ jobs:
       - name: Check configured Gemini model
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          AGENT_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.8-flash' }}
+          AGENT_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.1-flash-lite' }}
         run: node agent/check-model.mjs
       - name: Analyze, generate, verify and repair once
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           AGENT_PROVIDER: gemini
-          AGENT_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.8-flash' }}
+          AGENT_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.1-flash-lite' }}
           PR_HEAD: ${{ github.event.pull_request.head.sha }}
           PR_BASE: ${{ github.event.pull_request.base.sha }}
         run: node agent/run.mjs
