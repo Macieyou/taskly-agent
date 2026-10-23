@@ -9,8 +9,10 @@ import { propose } from './model.mjs';
 
 const output = path.resolve('agent-output');
 await mkdir(output, { recursive: true });
+const provider = process.env.AGENT_PROVIDER || 'gemini';
+const apiKey = provider === 'gemini' ? process.env.GEMINI_API_KEY : process.env.OPENAI_API_KEY;
 const report = { status: 'failed', head: process.env.PR_HEAD, base: process.env.PR_BASE,
-  model: process.env.OPENAI_MODEL || 'gpt-5.4-mini', skillsLoaded: skills, attempts: [],
+  provider, model: process.env.AGENT_MODEL || (provider === 'gemini' ? 'gemini-3.8-flash' : 'gpt-5.4-mini'), skillsLoaded: skills, attempts: [],
   summary: '', baseline: null, final: null };
 let workspace; let image;
 try {
@@ -22,7 +24,7 @@ try {
   if (!context.changed.length) {
     report.status = 'skipped'; report.summary = 'No changed production TypeScript files; no model call or test generation required.';
   } else {
-    if (!process.env.OPENAI_API_KEY) throw new Error('OPENAI_API_KEY repository secret is missing');
+    if (!apiKey) throw new Error('Model API key repository secret is missing');
     const instructions = [await readFile(new URL('./AGENT.md', import.meta.url), 'utf8'),
       ...await Promise.all(skills.map((skill) => readFile(new URL(`./skills/${skill}/SKILL.md`, import.meta.url), 'utf8')))].join('\n\n');
     image = `taskly-test-agent:${process.pid}`;
@@ -35,7 +37,7 @@ try {
     let feedback = null;
     for (let attempt = 1; attempt <= limits.attempts; attempt += 1) {
       console.log(`Agent attempt ${attempt}/${limits.attempts}`);
-      const result = await propose({ instructions, context, feedback, model: report.model, apiKey: process.env.OPENAI_API_KEY });
+      const result = await propose({ instructions, context, feedback, model: report.model, apiKey, provider });
       const proposal = validateProposal(result.proposal, allowedTests);
       report.attempts.push({ number: attempt, decision: proposal.decision, summary: proposal.summary,
         skills: proposal.skills, files: proposal.files.map((file) => file.path), usage: result.usage, responseId: result.responseId });

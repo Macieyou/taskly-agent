@@ -36,8 +36,9 @@ jobs:
           git fetch --no-tags origin "$PR_HEAD"
       - name: Analyze, generate, verify and repair once
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          OPENAI_MODEL: ${{ vars.OPENAI_MODEL || 'gpt-5.4-mini' }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          AGENT_PROVIDER: gemini
+          AGENT_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.8-flash' }}
           PR_HEAD: ${{ github.event.pull_request.head.sha }}
           PR_BASE: ${{ github.event.pull_request.base.sha }}
         run: node agent/run.mjs
