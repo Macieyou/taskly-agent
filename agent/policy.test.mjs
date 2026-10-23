@@ -57,3 +57,11 @@ test('repair retains earlier files while replacing corrected content', async () 
   assert.throws(() => mergeRepair(previous, { ...next, files: [...next.files, ...next.files] }), /Duplicate/);
   assert.equal(mergeRepair(previous, { decision: 'skip' }).decision, 'skip');
 });
+
+test('ignores line-ending-only proposals but retains changed assertions and new files', async () => {
+  const { changedTestFiles } = await import('./policy.mjs');
+  const originals = new Map([['backend/tests/a.test.ts', 'expect(value).toBe(1);\r\n']]);
+  assert.equal(changedTestFiles([{ path: 'backend/tests/a.test.ts', content: 'expect(value).toBe(1);' }], originals).length, 0);
+  assert.equal(changedTestFiles([{ path: 'backend/tests/a.test.ts', content: 'expect(value).toBe(2);' }], originals).length, 1);
+  assert.equal(changedTestFiles([{ path: 'backend/tests/new.test.ts', content: 'test' }], originals).length, 1);
+});
