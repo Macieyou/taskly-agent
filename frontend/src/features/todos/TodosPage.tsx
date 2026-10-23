@@ -7,6 +7,7 @@ import { TodoEditor } from './components/TodoEditor'
 import { TodoFilters } from './components/TodoFilters'
 import { TodoList } from './components/TodoList'
 import { TodosHeader } from './components/TodosHeader'
+import { TodoSummary } from './components/TodoSummary'
 import { useTodoFilters } from './hooks/useTodoFilters'
 import { useTodosBusy } from './hooks/useTodosBusy'
 import { useTodosQuery } from './hooks/useTodosQuery'
@@ -60,6 +61,7 @@ export function TodosPage() {
           onSearchChange={filters.setSearch}
           onSortChange={filters.setSort}
         />
+        {todosQuery.isSuccess && <TodoSummary todos={todos} />}
         {error && (
           <Alert variant="warning">
             {error.message}
