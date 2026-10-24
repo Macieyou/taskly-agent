@@ -64,7 +64,21 @@ try {
         report.summary = 'Existing tests were returned unchanged apart from line endings or trailing whitespace; no new tests or patch published.';
         break;
       }
-      for (const file of changedTestFiles(proposal.files, files)) validateTestIntegrity(file.path, file.content, files.get(file.path));
+      let integrityFailure;
+      for (const file of changedTestFiles(proposal.files, files)) {
+        try {
+          validateTestIntegrity(file.path, file.content, files.get(file.path));
+        } catch (error) {
+          integrityFailure = { file: file.path, error: error.message };
+          break;
+        }
+      }
+      if (integrityFailure) {
+        report.attempts.at(-1).integrityFailure = integrityFailure;
+        feedback = { previousProposal: proposal, validation: integrityFailure,
+          instruction: 'Repair this static test-policy violation. Preserve original statements, use complete typed fixtures, and keep all proposed useful test cases. Invalid tests were not executed.' };
+        continue;
+      }
       // Every attempt starts from the same PR snapshot, not from previous failed output.
       for (const file of allowedTests) {
         if (files.has(file)) await writeFile(path.join(workspace, file), files.get(file));
