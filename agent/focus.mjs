@@ -35,6 +35,8 @@ export function focusContext(context, baseline) {
       }
     }
   }
-  return { ...context, focusTargets: targets, allowedTests: [...allowed],
+  return { ...context, allChanged: context.changed, changed: targets,
+    changes: context.changes?.filter(change => targetSet.has(change.before) || targetSet.has(change.after)),
+    focusTargets: targets, allowedTests: [...allowed],
     files: Object.fromEntries([...files].filter(([file]) => selected.has(file))) };
 }

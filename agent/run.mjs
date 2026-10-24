@@ -45,6 +45,9 @@ try {
     }));
     if (Buffer.byteLength(JSON.stringify(context)) > limits.contextBytes) throw new Error('Context including baseline coverage exceeds limit; split the PR');
     const generationContext = focusContext(context, report.baseline);
+    if (generationContext.focusTargets) {
+      generationContext.diff = await checked('git', ['diff', '--no-ext-diff', '--unified=3', `${report.base}...${report.head}`, '--', ...generationContext.focusTargets], { maxBytes: limits.contextBytes });
+    }
     const generationAllowedTests = new Set(generationContext.allowedTests);
     report.focusTargets = generationContext.focusTargets ?? context.changed;
     // A fresh local Git index is only used to produce a reviewable patch, never to push.

@@ -16,6 +16,8 @@ test('focuses measured gaps, retains dependencies and direct tests, excludes unr
   const baseline = { frontend: { coverageByFile: { [target]: metrics(80), 'frontend/src/Summary.tsx': metrics(100) } }, backend: {} };
   const result = focusContext(context, baseline);
   assert.deepEqual(result.focusTargets, [target]);
+  assert.deepEqual(result.changed, [target]);
+  assert.deepEqual(result.allChanged, context.changed);
   assert.ok(result.files['frontend/src/Input.tsx']);
   assert.ok(result.files['frontend/package.json']);
   assert.ok(result.allowedTests.includes('frontend/src/Form.test.tsx'));
