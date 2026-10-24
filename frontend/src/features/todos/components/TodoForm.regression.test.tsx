@@ -42,8 +42,10 @@ it('updates description and due date values on change', async () => {
   await user.type(screen.getByLabelText(/Description/), 'Some details')
   await user.type(screen.getByLabelText(/Due date/), '2026-10-01')
   await user.click(screen.getByRole('button', { name: 'Save task' }))
-  expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({
-    description: 'Some details',
-    due_date: '2026-10-01'
-  }))
+  expect(onSubmit).toHaveBeenCalledWith(
+    expect.objectContaining({
+      description: 'Some details',
+      due_date: '2026-10-01',
+    }),
+  )
 })
