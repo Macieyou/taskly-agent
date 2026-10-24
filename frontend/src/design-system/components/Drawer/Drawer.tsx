@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef } from 'react'
+import { useLayoutEffect, useId, useRef } from 'react'
 import { X } from 'lucide-react'
 import { IconButton } from '../IconButton'
 import { Heading } from '../Heading'
@@ -15,15 +15,21 @@ export function Drawer({
 }: DrawerProps) {
   const ref = useRef<HTMLDialogElement>(null)
   const titleId = useId()
-  useEffect(() => {
+  useLayoutEffect(() => {
     const dialog = ref.current
     if (!isOpen || !dialog) return
+    const opener = document.activeElement
     dialog.showModal()
     const field = dialog.querySelector<HTMLElement>(
       'input:not(:disabled), textarea:not(:disabled), select:not(:disabled)',
     )
     field?.focus()
-    return () => dialog.close()
+    return () => {
+      dialog.close()
+      queueMicrotask(() => {
+        if (opener instanceof HTMLElement && opener.isConnected) opener.focus()
+      })
+    }
   }, [isOpen])
 
   return (
