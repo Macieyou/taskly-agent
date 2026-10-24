@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-24",
+  "axeList": {
+    "incomplete": 0,
+    "passes": 24,
+    "version": "4.14.0",
+    "violations": []
+  },
+  "axeInvalidForm": {
+    "incomplete": 0,
+    "passes": 15,
+    "violations": []
+  },
+  "performance": {
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+    "navigation": [
+      {
+        "domContentLoaded": 161.60000000009313,
+        "load": 189.89999999990687,
+        "transfer": 300
+      }
+    ],
+    "paint": [
+      {
+        "name": "first-paint",
+        "startTime": 208
+      },
+      {
+        "name": "first-contentful-paint",
+        "startTime": 208
+      }
+    ],
+    "resources": [
+      {
+        "name": "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Source+Sans+3:wght@400;500;600&display=swap",
+        "duration": 121.1999999997206,
+        "transfer": 1117,
+        "decoded": 11427
+      },
+      {
+        "name": "http://127.0.0.1:8080/assets/index-DfiPaR1f.css",
+        "duration": 22.699999999720603,
+        "transfer": 300,
+        "decoded": 0
+      },
+      {
+        "name": "http://127.0.0.1:8080/assets/index-Cn4YgXGA.js",
+        "duration": 21,
+        "transfer": 300,
+        "decoded": 0
+      },
+      {
+        "name": "https://fonts.gstatic.com/s/sourcesans3/v20/nwpStKy2OAdR1K-IwhWudF-R3w8aZQ.woff2",
+        "duration": 0,
+        "transfer": 0,
+        "decoded": 28872
+      },
+      {
+        "name": "https://fonts.gstatic.com/s/spacegrotesk/v22/V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2",
+        "duration": 0,
+        "transfer": 0,
+        "decoded": 22288
+      },
+      {
+        "name": "http://127.0.0.1:8080/api/todos",
+        "duration": 25.600000000093132,
+        "transfer": 300,
+        "decoded": 714
+      },
+      {
+        "name": "http://127.0.0.1:8080/favicon.ico",
+        "duration": 9.799999999813735,
+        "transfer": 300,
+        "decoded": 894
+      }
+    ]
+  },
+  "checks": {
+    "width320NoHorizontalOverflow": true,
+    "width390NoHorizontalOverflow": true,
+    "invalidTitleFocused": true,
+    "escapeRestoresOpener": true
+  }
+}
