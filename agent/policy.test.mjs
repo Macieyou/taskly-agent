@@ -2,10 +2,17 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { safePath, isSource, validateProposal } from './policy.mjs';
 import { requireSha } from './context.mjs';
-import { passes, coverageImproved } from './sandbox.mjs';
+import { passes, coverageImproved, uncoveredLocations } from './sandbox.mjs';
 
 const file = 'backend/tests/config.test.ts';
 const allowed = new Set([file]);
+test('extracts uncovered source locations without including covered or external files', () => {
+  const data = { s: { 0: 0, 1: 2 }, statementMap: { 0: { start: { line: 12 } }, 1: { start: { line: 20 } } },
+    f: { 0: 0, 1: 0 }, fnMap: { 0: { loc: { start: { line: 12 } } }, 1: { loc: { start: { line: 30 } } } } };
+  assert.deepEqual(uncoveredLocations({ '/tmp/app/src/Form.tsx': data, '/outside/file.ts': data }, 'frontend'), {
+    'frontend/src/Form.tsx': [12, 30]
+  });
+});
 test('coverage refinement detects newly covered branches even when rounded percentages match', () => {
   const baseline = Object.fromEntries(['frontend', 'backend'].map(side => [side, {
     coverage: Object.fromEntries(['lines', 'statements', 'branches', 'functions'].map(metric => [metric, { covered: 100, pct: 95 }]))

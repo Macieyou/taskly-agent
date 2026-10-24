@@ -41,7 +41,11 @@ try {
       const result = report.baseline[side];
       const start = result.log.indexOf('% Coverage report');
       const changedFiles = Object.fromEntries(Object.entries(result.coverageByFile).filter(([file]) => context.changed.includes(file)));
-      return [side, { totals: result.coverage, changedFiles, report: start < 0 ? '' : result.log.slice(start) }];
+      const uncoveredSource = Object.fromEntries(Object.entries(result.uncovered).filter(([file]) => context.changed.includes(file)).map(([file, lines]) => {
+        const source = files.get(file)?.split('\n') ?? [];
+        return [file, lines.map(line => ({ line, source: source[line - 1] ?? '' }))];
+      }));
+      return [side, { totals: result.coverage, changedFiles, uncoveredSource, report: start < 0 ? '' : result.log.slice(start) }];
     }));
     if (Buffer.byteLength(JSON.stringify(context)) > limits.contextBytes) throw new Error('Context including baseline coverage exceeds limit; split the PR');
     const generationContext = focusContext(context, report.baseline);
