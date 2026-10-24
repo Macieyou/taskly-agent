@@ -1,0 +1,2226 @@
+{
+  "status": "verified",
+  "head": "6fc1d5bf6b0e2004c497d33d2aff714e9adb9b42",
+  "base": "34e79a39f6bfd7a3c7ecf81c79f57174efef7e54",
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "skillsLoaded": [
+    "pr-test-review",
+    "frontend-unit-tests",
+    "backend-unit-tests"
+  ],
+  "attempts": [
+    {
+      "number": 1,
+      "decision": "edit",
+      "summary": "Added a regression test to ensure that the TodoForm component correctly shifts focus to the first invalid input when form validation fails. This addresses the gap in error handling behavior following the recent update to the focus-management logic in TodoForm.tsx.",
+      "skills": [
+        "frontend-unit-tests"
+      ],
+      "files": [
+        "frontend/src/features/todos/components/TodoForm.regression.test.tsx"
+      ],
+      "usage": {
+        "promptTokenCount": 25305,
+        "candidatesTokenCount": 357,
+        "totalTokenCount": 25662,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 25305
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "responseId": "V5rcauOUEM7e-sAP6-rl8Qs"
+    },
+    {
+      "number": 2,
+      "decision": "edit",
+      "summary": "Added a new test case in TodoForm.regression.test.tsx to exercise the description and due-date change handlers, which were previously identified as uncovered source lines. These tests use the real ThemeProvider and component rendering to ensure actual input interaction is captured.",
+      "skills": [
+        "frontend-unit-tests"
+      ],
+      "files": [
+        "frontend/src/features/todos/components/TodoForm.regression.test.tsx"
+      ],
+      "usage": {
+        "promptTokenCount": 25698,
+        "candidatesTokenCount": 606,
+        "totalTokenCount": 26304,
+        "cachedContentTokenCount": 22196,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 25698
+          }
+        ],
+        "cacheTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 22196
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "responseId": "WZrcaoO2H47yjMcPx4TV8Ao"
+    }
+  ],
+  "summary": "Added a new test case in TodoForm.regression.test.tsx to exercise the description and due-date change handlers, which were previously identified as uncovered source lines. These tests use the real ThemeProvider and component rendering to ensure actual input interaction is captured.",
+  "baseline": {
+    "backend": {
+      "passed": true,
+      "exitCode": 0,
+      "coverage": {
+        "lines": {
+          "total": 112,
+          "covered": 88,
+          "skipped": 0,
+          "pct": 78.57
+        },
+        "statements": {
+          "total": 134,
+          "covered": 104,
+          "skipped": 0,
+          "pct": 77.61
+        },
+        "functions": {
+          "total": 35,
+          "covered": 27,
+          "skipped": 0,
+          "pct": 77.14
+        },
+        "branches": {
+          "total": 50,
+          "covered": 47,
+          "skipped": 0,
+          "pct": 94
+        },
+        "branchesTrue": {
+          "total": 0,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 100
+        }
+      },
+      "coverageByFile": {
+        "backend/src/factory.ts": {
+          "lines": {
+            "total": 17,
+            "covered": 17,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 4,
+            "covered": 4,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 22,
+            "covered": 21,
+            "skipped": 0,
+            "pct": 95.45
+          },
+          "branches": {
+            "total": 14,
+            "covered": 13,
+            "skipped": 0,
+            "pct": 92.85
+          }
+        },
+        "backend/src/main.ts": {
+          "lines": {
+            "total": 3,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 0
+          },
+          "functions": {
+            "total": 1,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 0
+          },
+          "statements": {
+            "total": 3,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 0
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "backend/src/api/health.ts": {
+          "lines": {
+            "total": 5,
+            "covered": 5,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 5,
+            "covered": 5,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "backend/src/core/config.ts": {
+          "lines": {
+            "total": 13,
+            "covered": 13,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 15,
+            "covered": 15,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 6,
+            "covered": 6,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "backend/src/core/database.ts": {
+          "lines": {
+            "total": 3,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 66.66
+          },
+          "functions": {
+            "total": 2,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 50
+          },
+          "statements": {
+            "total": 3,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 66.66
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "backend/src/core/lifespan.ts": {
+          "lines": {
+            "total": 20,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 0
+          },
+          "functions": {
+            "total": 6,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 0
+          },
+          "statements": {
+            "total": 25,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 0
+          },
+          "branches": {
+            "total": 2,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 0
+          }
+        },
+        "backend/src/features/todos/mappers.ts": {
+          "lines": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "backend/src/features/todos/repository.ts": {
+          "lines": {
+            "total": 16,
+            "covered": 16,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 7,
+            "covered": 7,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 17,
+            "covered": 17,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 12,
+            "covered": 12,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "backend/src/features/todos/router.ts": {
+          "lines": {
+            "total": 26,
+            "covered": 26,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 8,
+            "covered": 8,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 34,
+            "covered": 34,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 12,
+            "covered": 12,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "backend/src/features/todos/summary.ts": {
+          "lines": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 3,
+            "covered": 3,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "backend/src/features/todos/validators.ts": {
+          "lines": {
+            "total": 6,
+            "covered": 6,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 6,
+            "covered": 6,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        }
+      },
+      "uncovered": {
+        "backend/src/factory.ts": [
+          20
+        ],
+        "backend/src/main.ts": [
+          3,
+          4,
+          5
+        ],
+        "backend/src/api/health.ts": [],
+        "backend/src/core/config.ts": [],
+        "backend/src/core/database.ts": [
+          10,
+          12
+        ],
+        "backend/src/core/lifespan.ts": [
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          26,
+          27,
+          28,
+          30,
+          31
+        ],
+        "backend/src/features/todos/mappers.ts": [],
+        "backend/src/features/todos/repository.ts": [],
+        "backend/src/features/todos/router.ts": [],
+        "backend/src/features/todos/summary.ts": [],
+        "backend/src/features/todos/validators.ts": []
+      },
+      "log": "Loaded Prisma config from prisma.config.ts.\n\nPrisma schema loaded from prisma/schema.prisma.\n\n✔ Generated Prisma Client (7.10.1) to ./src/generated/prisma in 32ms\n\n\n\u001b[1m\u001b[30m\u001b[46m RUN \u001b[49m\u001b[39m\u001b[22m \u001b[36mv4.1.12 \u001b[39m\u001b[90m/tmp/app\u001b[39m\n      \u001b[2mCoverage enabled with \u001b[22m\u001b[33mv8\u001b[39m\n\n \u001b[32m✓\u001b[39m tests/repository.test.ts \u001b[2m(\u001b[22m\u001b[2m11 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 26\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/router.test.ts \u001b[2m(\u001b[22m\u001b[2m17 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 95\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/factory.test.ts \u001b[2m(\u001b[22m\u001b[2m7 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 83\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/validators.test.ts \u001b[2m(\u001b[22m\u001b[2m27 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 18\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/config.test.ts \u001b[2m(\u001b[22m\u001b[2m8 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 8\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/summary.test.ts \u001b[2m(\u001b[22m\u001b[2m5 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 6\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/mappers.test.ts \u001b[2m(\u001b[22m\u001b[2m4 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 11\u001b[2mms\u001b[22m\u001b[39m\n\n\u001b[2m Test Files \u001b[22m \u001b[1m\u001b[32m7 passed\u001b[39m\u001b[22m\u001b[90m (7)\u001b[39m\n\u001b[2m      Tests \u001b[22m \u001b[1m\u001b[32m79 passed\u001b[39m\u001b[22m\u001b[90m (79)\u001b[39m\n\u001b[2m   Start at \u001b[22m 11:44:58\n\u001b[2m   Duration \u001b[22m 2.24s\u001b[2m (transform 129ms, setup 0ms, import 861ms, tests 246ms, environment 1ms)\u001b[22m\n\n\u001b[34m % \u001b[39m\u001b[2mCoverage report from \u001b[22m\u001b[33mv8\u001b[39m\n-------------------|---------|----------|---------|---------|-------------------\nFile               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s \n-------------------|---------|----------|---------|---------|-------------------\nAll files          |   77.61 |       94 |   77.14 |   78.57 |                   \n src               |      84 |    92.85 |      80 |      85 |                   \n  factory.ts       |   95.45 |    92.85 |     100 |     100 | 20                \n  main.ts          |       0 |      100 |       0 |       0 | 3-5               \n src/api           |     100 |      100 |     100 |     100 |                   \n  health.ts        |     100 |      100 |     100 |     100 |                   \n src/core          |   39.53 |       75 |   22.22 |   41.66 |                   \n  config.ts        |     100 |      100 |     100 |     100 |                   \n  database.ts      |   66.66 |      100 |      50 |   66.66 | 12                \n  lifespan.ts      |       0 |        0 |       0 |       0 | 8-31              \n ...features/todos |     100 |      100 |     100 |     100 |                   \n  mappers.ts       |     100 |      100 |     100 |     100 |                   \n  repository.ts    |     100 |      100 |     100 |     100 |                   \n  router.ts        |     100 |      100 |     100 |     100 |                   \n  summary.ts       |     100 |      100 |     100 |     100 |                   \n  validators.ts    |     100 |      100 |     100 |     100 |                   \n-------------------|---------|----------|---------|---------|-------------------\n"
+    },
+    "frontend": {
+      "passed": true,
+      "exitCode": 0,
+      "coverage": {
+        "lines": {
+          "total": 171,
+          "covered": 166,
+          "skipped": 0,
+          "pct": 97.07
+        },
+        "statements": {
+          "total": 188,
+          "covered": 179,
+          "skipped": 0,
+          "pct": 95.21
+        },
+        "functions": {
+          "total": 92,
+          "covered": 86,
+          "skipped": 0,
+          "pct": 93.47
+        },
+        "branches": {
+          "total": 141,
+          "covered": 125,
+          "skipped": 0,
+          "pct": 88.65
+        },
+        "branchesTrue": {
+          "total": 0,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 100
+        }
+      },
+      "coverageByFile": {
+        "frontend/src/App.tsx": {
+          "lines": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/app/AppProviders.tsx": {
+          "lines": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/components/ApplicationHeader.tsx": {
+          "lines": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/components/SuccessNotice.tsx": {
+          "lines": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 3,
+            "covered": 3,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/TodosPage.tsx": {
+          "lines": {
+            "total": 26,
+            "covered": 23,
+            "skipped": 0,
+            "pct": 88.46
+          },
+          "functions": {
+            "total": 11,
+            "covered": 8,
+            "skipped": 0,
+            "pct": 72.72
+          },
+          "statements": {
+            "total": 27,
+            "covered": 23,
+            "skipped": 0,
+            "pct": 85.18
+          },
+          "branches": {
+            "total": 20,
+            "covered": 18,
+            "skipped": 0,
+            "pct": 90
+          }
+        },
+        "frontend/src/features/todos/api/todos.ts": {
+          "lines": {
+            "total": 7,
+            "covered": 7,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 4,
+            "covered": 4,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 7,
+            "covered": 7,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/components/DeleteTodoDialog.tsx": {
+          "lines": {
+            "total": 8,
+            "covered": 8,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 3,
+            "covered": 3,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 9,
+            "covered": 8,
+            "skipped": 0,
+            "pct": 88.88
+          },
+          "branches": {
+            "total": 8,
+            "covered": 6,
+            "skipped": 0,
+            "pct": 75
+          }
+        },
+        "frontend/src/features/todos/components/TodoEditor.tsx": {
+          "lines": {
+            "total": 10,
+            "covered": 10,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 12,
+            "covered": 11,
+            "skipped": 0,
+            "pct": 91.66
+          },
+          "branches": {
+            "total": 16,
+            "covered": 15,
+            "skipped": 0,
+            "pct": 93.75
+          }
+        },
+        "frontend/src/features/todos/components/TodoEmptyState.tsx": {
+          "lines": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 6,
+            "covered": 6,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/components/TodoFilters.tsx": {
+          "lines": {
+            "total": 4,
+            "covered": 4,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 4,
+            "covered": 4,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 4,
+            "covered": 4,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/components/TodoForm.tsx": {
+          "lines": {
+            "total": 19,
+            "covered": 17,
+            "skipped": 0,
+            "pct": 89.47
+          },
+          "functions": {
+            "total": 10,
+            "covered": 8,
+            "skipped": 0,
+            "pct": 80
+          },
+          "statements": {
+            "total": 20,
+            "covered": 18,
+            "skipped": 0,
+            "pct": 90
+          },
+          "branches": {
+            "total": 11,
+            "covered": 7,
+            "skipped": 0,
+            "pct": 63.63
+          }
+        },
+        "frontend/src/features/todos/components/TodoItem.tsx": {
+          "lines": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 14,
+            "covered": 8,
+            "skipped": 0,
+            "pct": 57.14
+          }
+        },
+        "frontend/src/features/todos/components/TodoList.tsx": {
+          "lines": {
+            "total": 5,
+            "covered": 5,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 5,
+            "covered": 5,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 5,
+            "covered": 5,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 8,
+            "covered": 8,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/components/TodoSummary.tsx": {
+          "lines": {
+            "total": 17,
+            "covered": 17,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 14,
+            "covered": 14,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 17,
+            "covered": 17,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/components/TodosHeader.tsx": {
+          "lines": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/hooks/useCreateTodoMutation.ts": {
+          "lines": {
+            "total": 6,
+            "covered": 6,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 5,
+            "covered": 5,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 7,
+            "covered": 7,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/hooks/useDeleteTodoMutation.ts": {
+          "lines": {
+            "total": 6,
+            "covered": 6,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 5,
+            "covered": 5,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 7,
+            "covered": 7,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/hooks/useTodoFilters.ts": {
+          "lines": {
+            "total": 4,
+            "covered": 4,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 4,
+            "covered": 4,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/hooks/useTodosBusy.ts": {
+          "lines": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/hooks/useTodosQuery.ts": {
+          "lines": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/hooks/useUpdateTodoMutation.ts": {
+          "lines": {
+            "total": 6,
+            "covered": 6,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 5,
+            "covered": 5,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 7,
+            "covered": 7,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/utils/todos.ts": {
+          "lines": {
+            "total": 25,
+            "covered": 25,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 6,
+            "covered": 6,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 27,
+            "covered": 27,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 36,
+            "covered": 35,
+            "skipped": 0,
+            "pct": 97.22
+          }
+        },
+        "frontend/src/hooks/useNotice.ts": {
+          "lines": {
+            "total": 7,
+            "covered": 7,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 5,
+            "covered": 4,
+            "skipped": 0,
+            "pct": 80
+          },
+          "statements": {
+            "total": 11,
+            "covered": 10,
+            "skipped": 0,
+            "pct": 90.9
+          },
+          "branches": {
+            "total": 4,
+            "covered": 4,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/lib/http.ts": {
+          "lines": {
+            "total": 10,
+            "covered": 10,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 12,
+            "covered": 12,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 10,
+            "covered": 10,
+            "skipped": 0,
+            "pct": 100
+          }
+        }
+      },
+      "uncovered": {
+        "frontend/src/App.tsx": [],
+        "frontend/src/app/AppProviders.tsx": [],
+        "frontend/src/components/ApplicationHeader.tsx": [],
+        "frontend/src/components/SuccessNotice.tsx": [],
+        "frontend/src/features/todos/TodosPage.tsx": [
+          29,
+          83,
+          94,
+          105
+        ],
+        "frontend/src/features/todos/api/todos.ts": [],
+        "frontend/src/features/todos/components/DeleteTodoDialog.tsx": [
+          19
+        ],
+        "frontend/src/features/todos/components/TodoEditor.tsx": [
+          24
+        ],
+        "frontend/src/features/todos/components/TodoEmptyState.tsx": [],
+        "frontend/src/features/todos/components/TodoFilters.tsx": [],
+        "frontend/src/features/todos/components/TodoForm.tsx": [
+          72,
+          96
+        ],
+        "frontend/src/features/todos/components/TodoItem.tsx": [],
+        "frontend/src/features/todos/components/TodoList.tsx": [],
+        "frontend/src/features/todos/components/TodoSummary.tsx": [],
+        "frontend/src/features/todos/components/TodosHeader.tsx": [],
+        "frontend/src/features/todos/hooks/useCreateTodoMutation.ts": [],
+        "frontend/src/features/todos/hooks/useDeleteTodoMutation.ts": [],
+        "frontend/src/features/todos/hooks/useTodoFilters.ts": [],
+        "frontend/src/features/todos/hooks/useTodosBusy.ts": [],
+        "frontend/src/features/todos/hooks/useTodosQuery.ts": [],
+        "frontend/src/features/todos/hooks/useUpdateTodoMutation.ts": [],
+        "frontend/src/features/todos/utils/todos.ts": [],
+        "frontend/src/hooks/useNotice.ts": [
+          8
+        ],
+        "frontend/src/lib/http.ts": []
+      },
+      "log": "\n\u001b[1m\u001b[30m\u001b[46m RUN \u001b[49m\u001b[39m\u001b[22m \u001b[36mv4.1.12 \u001b[39m\u001b[90m/tmp/app\u001b[39m\n      \u001b[2mCoverage enabled with \u001b[22m\u001b[33mv8\u001b[39m\n\n \u001b[32m✓\u001b[39m src/features/todos/TodosPage.integration.test.tsx \u001b[2m(\u001b[22m\u001b[2m4 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[33m 1359\u001b[2mms\u001b[22m\u001b[39m\n   \u001b[33m\u001b[2m✓\u001b[22m\u001b[39m creates, edits, completes and deletes tasks through real components and query hooks \u001b[33m 1010\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/hooks/mutations.test.tsx \u001b[2m(\u001b[22m\u001b[2m9 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[33m 335\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/utils/todos.boundaries.test.ts \u001b[2m(\u001b[22m\u001b[2m13 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 25\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/TodosPage.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 121\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/lib/http.test.ts \u001b[2m(\u001b[22m\u001b[2m8 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 16\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodoEditor.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 123\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodoForm.test.tsx \u001b[2m(\u001b[22m\u001b[2m2 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[33m 345\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/DeleteTodoDialog.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 132\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodoSummary.test.tsx \u001b[2m(\u001b[22m\u001b[2m5 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 164\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodoFilters.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 174\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/design-system/components/Drawer/Drawer.regression.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 205\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/components/SuccessNotice.test.tsx \u001b[2m(\u001b[22m\u001b[2m2 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 47\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodoItem.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 153\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/api/todos.test.ts \u001b[2m(\u001b[22m\u001b[2m2 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 8\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodoList.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 88\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/utils/todos.test.ts \u001b[2m(\u001b[22m\u001b[2m2 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 5\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/components/ApplicationHeader.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 100\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodosHeader.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 145\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/hooks/useTodoFilters.test.ts \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 30\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodoForm.regression.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 194\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/App.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 94\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/hooks/useNotice.test.ts \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 21\u001b[2mms\u001b[22m\u001b[39m\n\n\u001b[2m Test Files \u001b[22m \u001b[1m\u001b[32m22 passed\u001b[39m\u001b[22m\u001b[90m (22)\u001b[39m\n\u001b[2m      Tests \u001b[22m \u001b[1m\u001b[32m60 passed\u001b[39m\u001b[22m\u001b[90m (60)\u001b[39m\n\u001b[2m   Start at \u001b[22m 11:45:06\n\u001b[2m   Duration \u001b[22m 19.94s\u001b[2m (transform 463ms, setup 2.52s, import 1.90s, tests 3.88s, environment 7.54s)\u001b[22m\n\n\u001b[34m % \u001b[39m\u001b[2mCoverage report from \u001b[22m\u001b[33mv8\u001b[39m\n-------------------|---------|----------|---------|---------|-------------------\nFile               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s \n-------------------|---------|----------|---------|---------|-------------------\nAll files          |   95.21 |    88.65 |   93.47 |   97.07 |                   \n src               |     100 |      100 |     100 |     100 |                   \n  App.tsx          |     100 |      100 |     100 |     100 |                   \n src/app           |     100 |      100 |     100 |     100 |                   \n  AppProviders.tsx |     100 |      100 |     100 |     100 |                   \n src/components    |     100 |      100 |     100 |     100 |                   \n  ...ionHeader.tsx |     100 |      100 |     100 |     100 |                   \n  ...essNotice.tsx |     100 |      100 |     100 |     100 |                   \n ...features/todos |   85.18 |       90 |   72.72 |   88.46 |                   \n  TodosPage.tsx    |   85.18 |       90 |   72.72 |   88.46 | 83,94,105         \n ...ures/todos/api |     100 |      100 |     100 |     100 |                   \n  todos.ts         |     100 |      100 |     100 |     100 |                   \n ...dos/components |   94.28 |       80 |   95.12 |   96.96 |                   \n  ...odoDialog.tsx |   88.88 |       75 |     100 |     100 | 19,42             \n  TodoEditor.tsx   |   91.66 |    93.75 |     100 |     100 | 24                \n  ...mptyState.tsx |     100 |      100 |     100 |     100 |                   \n  TodoFilters.tsx  |     100 |      100 |     100 |     100 |                   \n  TodoForm.tsx     |      90 |    63.63 |      80 |   89.47 | 72,96             \n  TodoItem.tsx     |     100 |    57.14 |     100 |     100 | 32,47-51          \n  TodoList.tsx     |     100 |      100 |     100 |     100 |                   \n  TodoSummary.tsx  |     100 |      100 |     100 |     100 |                   \n  TodosHeader.tsx  |     100 |      100 |     100 |     100 |                   \n ...es/todos/hooks |     100 |      100 |     100 |     100 |                   \n  ...doMutation.ts |     100 |      100 |     100 |     100 |                   \n  ...doMutation.ts |     100 |      100 |     100 |     100 |                   \n  ...odoFilters.ts |     100 |      100 |     100 |     100 |                   \n  useTodosBusy.ts  |     100 |      100 |     100 |     100 |                   \n  useTodosQuery.ts |     100 |      100 |     100 |     100 |                   \n  ...doMutation.ts |     100 |      100 |     100 |     100 |                   \n ...es/todos/utils |     100 |    97.22 |     100 |     100 |                   \n  todos.ts         |     100 |    97.22 |     100 |     100 | 52                \n src/hooks         |    90.9 |      100 |      80 |     100 |                   \n  useNotice.ts     |    90.9 |      100 |      80 |     100 |                   \n src/lib           |     100 |      100 |     100 |     100 |                   \n  http.ts          |     100 |      100 |     100 |     100 |                   \n-------------------|---------|----------|---------|---------|-------------------\n"
+    }
+  },
+  "final": {
+    "backend": {
+      "passed": true,
+      "exitCode": 0,
+      "coverage": {
+        "lines": {
+          "total": 112,
+          "covered": 88,
+          "skipped": 0,
+          "pct": 78.57
+        },
+        "statements": {
+          "total": 134,
+          "covered": 104,
+          "skipped": 0,
+          "pct": 77.61
+        },
+        "functions": {
+          "total": 35,
+          "covered": 27,
+          "skipped": 0,
+          "pct": 77.14
+        },
+        "branches": {
+          "total": 50,
+          "covered": 47,
+          "skipped": 0,
+          "pct": 94
+        },
+        "branchesTrue": {
+          "total": 0,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 100
+        }
+      },
+      "coverageByFile": {
+        "backend/src/factory.ts": {
+          "lines": {
+            "total": 17,
+            "covered": 17,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 4,
+            "covered": 4,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 22,
+            "covered": 21,
+            "skipped": 0,
+            "pct": 95.45
+          },
+          "branches": {
+            "total": 14,
+            "covered": 13,
+            "skipped": 0,
+            "pct": 92.85
+          }
+        },
+        "backend/src/main.ts": {
+          "lines": {
+            "total": 3,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 0
+          },
+          "functions": {
+            "total": 1,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 0
+          },
+          "statements": {
+            "total": 3,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 0
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "backend/src/api/health.ts": {
+          "lines": {
+            "total": 5,
+            "covered": 5,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 5,
+            "covered": 5,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "backend/src/core/config.ts": {
+          "lines": {
+            "total": 13,
+            "covered": 13,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 15,
+            "covered": 15,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 6,
+            "covered": 6,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "backend/src/core/database.ts": {
+          "lines": {
+            "total": 3,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 66.66
+          },
+          "functions": {
+            "total": 2,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 50
+          },
+          "statements": {
+            "total": 3,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 66.66
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "backend/src/core/lifespan.ts": {
+          "lines": {
+            "total": 20,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 0
+          },
+          "functions": {
+            "total": 6,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 0
+          },
+          "statements": {
+            "total": 25,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 0
+          },
+          "branches": {
+            "total": 2,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 0
+          }
+        },
+        "backend/src/features/todos/mappers.ts": {
+          "lines": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "backend/src/features/todos/repository.ts": {
+          "lines": {
+            "total": 16,
+            "covered": 16,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 7,
+            "covered": 7,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 17,
+            "covered": 17,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 12,
+            "covered": 12,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "backend/src/features/todos/router.ts": {
+          "lines": {
+            "total": 26,
+            "covered": 26,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 8,
+            "covered": 8,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 34,
+            "covered": 34,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 12,
+            "covered": 12,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "backend/src/features/todos/summary.ts": {
+          "lines": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 3,
+            "covered": 3,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "backend/src/features/todos/validators.ts": {
+          "lines": {
+            "total": 6,
+            "covered": 6,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 6,
+            "covered": 6,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        }
+      },
+      "uncovered": {
+        "backend/src/factory.ts": [
+          20
+        ],
+        "backend/src/main.ts": [
+          3,
+          4,
+          5
+        ],
+        "backend/src/api/health.ts": [],
+        "backend/src/core/config.ts": [],
+        "backend/src/core/database.ts": [
+          10,
+          12
+        ],
+        "backend/src/core/lifespan.ts": [
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          26,
+          27,
+          28,
+          30,
+          31
+        ],
+        "backend/src/features/todos/mappers.ts": [],
+        "backend/src/features/todos/repository.ts": [],
+        "backend/src/features/todos/router.ts": [],
+        "backend/src/features/todos/summary.ts": [],
+        "backend/src/features/todos/validators.ts": []
+      },
+      "log": "Loaded Prisma config from prisma.config.ts.\n\nPrisma schema loaded from prisma/schema.prisma.\n\n✔ Generated Prisma Client (7.10.1) to ./src/generated/prisma in 33ms\n\n\n\u001b[1m\u001b[30m\u001b[46m RUN \u001b[49m\u001b[39m\u001b[22m \u001b[36mv4.1.12 \u001b[39m\u001b[90m/tmp/app\u001b[39m\n      \u001b[2mCoverage enabled with \u001b[22m\u001b[33mv8\u001b[39m\n\n \u001b[32m✓\u001b[39m tests/repository.test.ts \u001b[2m(\u001b[22m\u001b[2m11 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 25\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/router.test.ts \u001b[2m(\u001b[22m\u001b[2m17 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 100\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/factory.test.ts \u001b[2m(\u001b[22m\u001b[2m7 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 86\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/validators.test.ts \u001b[2m(\u001b[22m\u001b[2m27 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 18\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/config.test.ts \u001b[2m(\u001b[22m\u001b[2m8 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 8\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/summary.test.ts \u001b[2m(\u001b[22m\u001b[2m5 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 5\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m tests/mappers.test.ts \u001b[2m(\u001b[22m\u001b[2m4 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 11\u001b[2mms\u001b[22m\u001b[39m\n\n\u001b[2m Test Files \u001b[22m \u001b[1m\u001b[32m7 passed\u001b[39m\u001b[22m\u001b[90m (7)\u001b[39m\n\u001b[2m      Tests \u001b[22m \u001b[1m\u001b[32m79 passed\u001b[39m\u001b[22m\u001b[90m (79)\u001b[39m\n\u001b[2m   Start at \u001b[22m 11:45:35\n\u001b[2m   Duration \u001b[22m 2.24s\u001b[2m (transform 132ms, setup 0ms, import 872ms, tests 254ms, environment 1ms)\u001b[22m\n\n\u001b[34m % \u001b[39m\u001b[2mCoverage report from \u001b[22m\u001b[33mv8\u001b[39m\n-------------------|---------|----------|---------|---------|-------------------\nFile               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s \n-------------------|---------|----------|---------|---------|-------------------\nAll files          |   77.61 |       94 |   77.14 |   78.57 |                   \n src               |      84 |    92.85 |      80 |      85 |                   \n  factory.ts       |   95.45 |    92.85 |     100 |     100 | 20                \n  main.ts          |       0 |      100 |       0 |       0 | 3-5               \n src/api           |     100 |      100 |     100 |     100 |                   \n  health.ts        |     100 |      100 |     100 |     100 |                   \n src/core          |   39.53 |       75 |   22.22 |   41.66 |                   \n  config.ts        |     100 |      100 |     100 |     100 |                   \n  database.ts      |   66.66 |      100 |      50 |   66.66 | 12                \n  lifespan.ts      |       0 |        0 |       0 |       0 | 8-31              \n ...features/todos |     100 |      100 |     100 |     100 |                   \n  mappers.ts       |     100 |      100 |     100 |     100 |                   \n  repository.ts    |     100 |      100 |     100 |     100 |                   \n  router.ts        |     100 |      100 |     100 |     100 |                   \n  summary.ts       |     100 |      100 |     100 |     100 |                   \n  validators.ts    |     100 |      100 |     100 |     100 |                   \n-------------------|---------|----------|---------|---------|-------------------\n"
+    },
+    "frontend": {
+      "passed": true,
+      "exitCode": 0,
+      "coverage": {
+        "lines": {
+          "total": 171,
+          "covered": 168,
+          "skipped": 0,
+          "pct": 98.24
+        },
+        "statements": {
+          "total": 188,
+          "covered": 181,
+          "skipped": 0,
+          "pct": 96.27
+        },
+        "functions": {
+          "total": 92,
+          "covered": 88,
+          "skipped": 0,
+          "pct": 95.65
+        },
+        "branches": {
+          "total": 141,
+          "covered": 126,
+          "skipped": 0,
+          "pct": 89.36
+        },
+        "branchesTrue": {
+          "total": 0,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 100
+        }
+      },
+      "coverageByFile": {
+        "frontend/src/App.tsx": {
+          "lines": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/app/AppProviders.tsx": {
+          "lines": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/components/ApplicationHeader.tsx": {
+          "lines": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/components/SuccessNotice.tsx": {
+          "lines": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 3,
+            "covered": 3,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/TodosPage.tsx": {
+          "lines": {
+            "total": 26,
+            "covered": 23,
+            "skipped": 0,
+            "pct": 88.46
+          },
+          "functions": {
+            "total": 11,
+            "covered": 8,
+            "skipped": 0,
+            "pct": 72.72
+          },
+          "statements": {
+            "total": 27,
+            "covered": 23,
+            "skipped": 0,
+            "pct": 85.18
+          },
+          "branches": {
+            "total": 20,
+            "covered": 18,
+            "skipped": 0,
+            "pct": 90
+          }
+        },
+        "frontend/src/features/todos/api/todos.ts": {
+          "lines": {
+            "total": 7,
+            "covered": 7,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 4,
+            "covered": 4,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 7,
+            "covered": 7,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/components/DeleteTodoDialog.tsx": {
+          "lines": {
+            "total": 8,
+            "covered": 8,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 3,
+            "covered": 3,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 9,
+            "covered": 8,
+            "skipped": 0,
+            "pct": 88.88
+          },
+          "branches": {
+            "total": 8,
+            "covered": 6,
+            "skipped": 0,
+            "pct": 75
+          }
+        },
+        "frontend/src/features/todos/components/TodoEditor.tsx": {
+          "lines": {
+            "total": 10,
+            "covered": 10,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 12,
+            "covered": 11,
+            "skipped": 0,
+            "pct": 91.66
+          },
+          "branches": {
+            "total": 16,
+            "covered": 15,
+            "skipped": 0,
+            "pct": 93.75
+          }
+        },
+        "frontend/src/features/todos/components/TodoEmptyState.tsx": {
+          "lines": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 6,
+            "covered": 6,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/components/TodoFilters.tsx": {
+          "lines": {
+            "total": 4,
+            "covered": 4,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 4,
+            "covered": 4,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 4,
+            "covered": 4,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/components/TodoForm.tsx": {
+          "lines": {
+            "total": 19,
+            "covered": 19,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 10,
+            "covered": 10,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 20,
+            "covered": 20,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 11,
+            "covered": 8,
+            "skipped": 0,
+            "pct": 72.72
+          }
+        },
+        "frontend/src/features/todos/components/TodoItem.tsx": {
+          "lines": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 14,
+            "covered": 8,
+            "skipped": 0,
+            "pct": 57.14
+          }
+        },
+        "frontend/src/features/todos/components/TodoList.tsx": {
+          "lines": {
+            "total": 5,
+            "covered": 5,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 5,
+            "covered": 5,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 5,
+            "covered": 5,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 8,
+            "covered": 8,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/components/TodoSummary.tsx": {
+          "lines": {
+            "total": 17,
+            "covered": 17,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 14,
+            "covered": 14,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 17,
+            "covered": 17,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/components/TodosHeader.tsx": {
+          "lines": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/hooks/useCreateTodoMutation.ts": {
+          "lines": {
+            "total": 6,
+            "covered": 6,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 5,
+            "covered": 5,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 7,
+            "covered": 7,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/hooks/useDeleteTodoMutation.ts": {
+          "lines": {
+            "total": 6,
+            "covered": 6,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 5,
+            "covered": 5,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 7,
+            "covered": 7,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/hooks/useTodoFilters.ts": {
+          "lines": {
+            "total": 4,
+            "covered": 4,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 4,
+            "covered": 4,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/hooks/useTodosBusy.ts": {
+          "lines": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 1,
+            "covered": 1,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/hooks/useTodosQuery.ts": {
+          "lines": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/hooks/useUpdateTodoMutation.ts": {
+          "lines": {
+            "total": 6,
+            "covered": 6,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 5,
+            "covered": 5,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 7,
+            "covered": 7,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/features/todos/utils/todos.ts": {
+          "lines": {
+            "total": 25,
+            "covered": 25,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 6,
+            "covered": 6,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 27,
+            "covered": 27,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 36,
+            "covered": 35,
+            "skipped": 0,
+            "pct": 97.22
+          }
+        },
+        "frontend/src/hooks/useNotice.ts": {
+          "lines": {
+            "total": 7,
+            "covered": 7,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 5,
+            "covered": 4,
+            "skipped": 0,
+            "pct": 80
+          },
+          "statements": {
+            "total": 11,
+            "covered": 10,
+            "skipped": 0,
+            "pct": 90.9
+          },
+          "branches": {
+            "total": 4,
+            "covered": 4,
+            "skipped": 0,
+            "pct": 100
+          }
+        },
+        "frontend/src/lib/http.ts": {
+          "lines": {
+            "total": 10,
+            "covered": 10,
+            "skipped": 0,
+            "pct": 100
+          },
+          "functions": {
+            "total": 2,
+            "covered": 2,
+            "skipped": 0,
+            "pct": 100
+          },
+          "statements": {
+            "total": 12,
+            "covered": 12,
+            "skipped": 0,
+            "pct": 100
+          },
+          "branches": {
+            "total": 10,
+            "covered": 10,
+            "skipped": 0,
+            "pct": 100
+          }
+        }
+      },
+      "uncovered": {
+        "frontend/src/App.tsx": [],
+        "frontend/src/app/AppProviders.tsx": [],
+        "frontend/src/components/ApplicationHeader.tsx": [],
+        "frontend/src/components/SuccessNotice.tsx": [],
+        "frontend/src/features/todos/TodosPage.tsx": [
+          29,
+          83,
+          94,
+          105
+        ],
+        "frontend/src/features/todos/api/todos.ts": [],
+        "frontend/src/features/todos/components/DeleteTodoDialog.tsx": [
+          19
+        ],
+        "frontend/src/features/todos/components/TodoEditor.tsx": [
+          24
+        ],
+        "frontend/src/features/todos/components/TodoEmptyState.tsx": [],
+        "frontend/src/features/todos/components/TodoFilters.tsx": [],
+        "frontend/src/features/todos/components/TodoForm.tsx": [],
+        "frontend/src/features/todos/components/TodoItem.tsx": [],
+        "frontend/src/features/todos/components/TodoList.tsx": [],
+        "frontend/src/features/todos/components/TodoSummary.tsx": [],
+        "frontend/src/features/todos/components/TodosHeader.tsx": [],
+        "frontend/src/features/todos/hooks/useCreateTodoMutation.ts": [],
+        "frontend/src/features/todos/hooks/useDeleteTodoMutation.ts": [],
+        "frontend/src/features/todos/hooks/useTodoFilters.ts": [],
+        "frontend/src/features/todos/hooks/useTodosBusy.ts": [],
+        "frontend/src/features/todos/hooks/useTodosQuery.ts": [],
+        "frontend/src/features/todos/hooks/useUpdateTodoMutation.ts": [],
+        "frontend/src/features/todos/utils/todos.ts": [],
+        "frontend/src/hooks/useNotice.ts": [
+          8
+        ],
+        "frontend/src/lib/http.ts": []
+      },
+      "log": "\n\u001b[1m\u001b[30m\u001b[46m RUN \u001b[49m\u001b[39m\u001b[22m \u001b[36mv4.1.12 \u001b[39m\u001b[90m/tmp/app\u001b[39m\n      \u001b[2mCoverage enabled with \u001b[22m\u001b[33mv8\u001b[39m\n\n \u001b[32m✓\u001b[39m src/features/todos/TodosPage.integration.test.tsx \u001b[2m(\u001b[22m\u001b[2m4 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[33m 1373\u001b[2mms\u001b[22m\u001b[39m\n   \u001b[33m\u001b[2m✓\u001b[22m\u001b[39m creates, edits, completes and deletes tasks through real components and query hooks \u001b[33m 1015\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/hooks/mutations.test.tsx \u001b[2m(\u001b[22m\u001b[2m9 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[33m 338\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/utils/todos.boundaries.test.ts \u001b[2m(\u001b[22m\u001b[2m13 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 26\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/TodosPage.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 116\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/lib/http.test.ts \u001b[2m(\u001b[22m\u001b[2m8 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 16\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodoEditor.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 133\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodoForm.regression.test.tsx \u001b[2m(\u001b[22m\u001b[2m2 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[33m 434\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodoForm.test.tsx \u001b[2m(\u001b[22m\u001b[2m2 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[33m 330\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/DeleteTodoDialog.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 128\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodoSummary.test.tsx \u001b[2m(\u001b[22m\u001b[2m5 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 171\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodoFilters.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 180\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/design-system/components/Drawer/Drawer.regression.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 206\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/components/SuccessNotice.test.tsx \u001b[2m(\u001b[22m\u001b[2m2 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 48\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodoItem.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 151\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/api/todos.test.ts \u001b[2m(\u001b[22m\u001b[2m2 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 8\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodoList.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 86\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/utils/todos.test.ts \u001b[2m(\u001b[22m\u001b[2m2 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 5\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/components/ApplicationHeader.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 93\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/components/TodosHeader.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 148\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/features/todos/hooks/useTodoFilters.test.ts \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 30\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/App.test.tsx \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 92\u001b[2mms\u001b[22m\u001b[39m\n \u001b[32m✓\u001b[39m src/hooks/useNotice.test.ts \u001b[2m(\u001b[22m\u001b[2m1 test\u001b[22m\u001b[2m)\u001b[22m\u001b[32m 21\u001b[2mms\u001b[22m\u001b[39m\n\n\u001b[2m Test Files \u001b[22m \u001b[1m\u001b[32m22 passed\u001b[39m\u001b[22m\u001b[90m (22)\u001b[39m\n\u001b[2m      Tests \u001b[22m \u001b[1m\u001b[32m61 passed\u001b[39m\u001b[22m\u001b[90m (61)\u001b[39m\n\u001b[2m   Start at \u001b[22m 11:45:43\n\u001b[2m   Duration \u001b[22m 20.27s\u001b[2m (transform 465ms, setup 2.53s, import 1.91s, tests 4.13s, environment 7.59s)\u001b[22m\n\n\u001b[34m % \u001b[39m\u001b[2mCoverage report from \u001b[22m\u001b[33mv8\u001b[39m\n-------------------|---------|----------|---------|---------|-------------------\nFile               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s \n-------------------|---------|----------|---------|---------|-------------------\nAll files          |   96.27 |    89.36 |   95.65 |   98.24 |                   \n src               |     100 |      100 |     100 |     100 |                   \n  App.tsx          |     100 |      100 |     100 |     100 |                   \n src/app           |     100 |      100 |     100 |     100 |                   \n  AppProviders.tsx |     100 |      100 |     100 |     100 |                   \n src/components    |     100 |      100 |     100 |     100 |                   \n  ...ionHeader.tsx |     100 |      100 |     100 |     100 |                   \n  ...essNotice.tsx |     100 |      100 |     100 |     100 |                   \n ...features/todos |   85.18 |       90 |   72.72 |   88.46 |                   \n  TodosPage.tsx    |   85.18 |       90 |   72.72 |   88.46 | 83,94,105         \n ...ures/todos/api |     100 |      100 |     100 |     100 |                   \n  todos.ts         |     100 |      100 |     100 |     100 |                   \n ...dos/components |   97.14 |    81.53 |     100 |     100 |                   \n  ...odoDialog.tsx |   88.88 |       75 |     100 |     100 | 19,42             \n  TodoEditor.tsx   |   91.66 |    93.75 |     100 |     100 | 24                \n  ...mptyState.tsx |     100 |      100 |     100 |     100 |                   \n  TodoFilters.tsx  |     100 |      100 |     100 |     100 |                   \n  TodoForm.tsx     |     100 |    72.72 |     100 |     100 | 96-113            \n  TodoItem.tsx     |     100 |    57.14 |     100 |     100 | 32,47-51          \n  TodoList.tsx     |     100 |      100 |     100 |     100 |                   \n  TodoSummary.tsx  |     100 |      100 |     100 |     100 |                   \n  TodosHeader.tsx  |     100 |      100 |     100 |     100 |                   \n ...es/todos/hooks |     100 |      100 |     100 |     100 |                   \n  ...doMutation.ts |     100 |      100 |     100 |     100 |                   \n  ...doMutation.ts |     100 |      100 |     100 |     100 |                   \n  ...odoFilters.ts |     100 |      100 |     100 |     100 |                   \n  useTodosBusy.ts  |     100 |      100 |     100 |     100 |                   \n  useTodosQuery.ts |     100 |      100 |     100 |     100 |                   \n  ...doMutation.ts |     100 |      100 |     100 |     100 |                   \n ...es/todos/utils |     100 |    97.22 |     100 |     100 |                   \n  todos.ts         |     100 |    97.22 |     100 |     100 | 52                \n src/hooks         |    90.9 |      100 |      80 |     100 |                   \n  useNotice.ts     |    90.9 |      100 |      80 |     100 |                   \n src/lib           |     100 |      100 |     100 |     100 |                   \n  http.ts          |     100 |      100 |     100 |     100 |                   \n-------------------|---------|----------|---------|---------|-------------------\n"
+    }
+  },
+  "changed": [
+    "backend/src/features/todos/router.ts",
+    "backend/src/features/todos/summary.ts",
+    "frontend/src/design-system/components/Drawer/Drawer.tsx",
+    "frontend/src/features/todos/TodosPage.tsx",
+    "frontend/src/features/todos/components/TodoForm.tsx",
+    "frontend/src/features/todos/components/TodoSummary.tsx"
+  ],
+  "focusTargets": [
+    "frontend/src/features/todos/components/TodoForm.tsx"
+  ]
+}
