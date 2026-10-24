@@ -2,10 +2,21 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { safePath, isSource, validateProposal } from './policy.mjs';
 import { requireSha } from './context.mjs';
-import { passes } from './sandbox.mjs';
+import { passes, coverageImproved } from './sandbox.mjs';
 
 const file = 'backend/tests/config.test.ts';
 const allowed = new Set([file]);
+test('coverage refinement detects newly covered branches even when rounded percentages match', () => {
+  const baseline = Object.fromEntries(['frontend', 'backend'].map(side => [side, {
+    coverage: Object.fromEntries(['lines', 'statements', 'branches', 'functions'].map(metric => [metric, { covered: 100, pct: 95 }]))
+  }]));
+  const result = structuredClone(baseline);
+  assert.equal(coverageImproved(result, baseline), false);
+  result.frontend.coverage.branches.covered += 1;
+  assert.equal(coverageImproved(result, baseline), true);
+  result.frontend.coverage.branches.covered -= 2;
+  assert.equal(coverageImproved(result, baseline), false);
+});
 const proposal = (content = "it('rejects empty config', () => expect(resolve()).toEqual({}))") => ({
   decision: 'edit', summary: 'Validate empty configuration', skills: ['backend-unit-tests'], files: [{ path: file, content }],
 });

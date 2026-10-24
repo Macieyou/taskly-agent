@@ -53,3 +53,9 @@ export function passes(results, baseline) {
   return ['backend', 'frontend'].every((side) => results[side].passed && (!baseline ||
     ['lines', 'statements', 'branches', 'functions'].every((metric) => results[side].coverage[metric].pct >= baseline[side].coverage[metric].pct)));
 }
+
+export function coverageImproved(results, baseline) {
+  return ['backend', 'frontend'].some(side =>
+    ['lines', 'statements', 'branches', 'functions'].some(metric =>
+      results[side].coverage[metric].covered > baseline[side].coverage[metric].covered));
+}
