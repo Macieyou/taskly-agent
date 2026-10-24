@@ -1,6 +1,6 @@
 import path from 'node:path';
 
-export const limits = Object.freeze({ files: 6, fileBytes: 30_000, contextBytes: 140_000, attempts: 2 });
+export const limits = Object.freeze({ files: 6, fileBytes: 30_000, contextBytes: 200_000, attempts: 2 });
 export const skills = ['pr-test-review', 'frontend-unit-tests', 'backend-unit-tests'];
 export function safePath(value) {
   return typeof value === 'string' && /^[a-zA-Z0-9_./-]+$/.test(value)

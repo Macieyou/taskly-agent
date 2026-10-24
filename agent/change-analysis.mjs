@@ -51,6 +51,7 @@ export function mapTests(changes, files, previousFiles = new Map()) {
       allowed.add(`${stem}.test.${source.endsWith('.tsx') ? 'tsx' : 'ts'}`);
       // Hooks can need a JSX provider even when their source is plain TypeScript.
       allowed.add(`${stem}.test.tsx`);
+      allowed.add(`${stem}.regression.test.tsx`);
     } else {
       const basename = path.posix.basename(stem);
       const collisions = [...files.keys()].filter(file => isSource(file) && file.startsWith('backend/') && path.posix.basename(file).replace(/\.ts$/, '') === basename);
