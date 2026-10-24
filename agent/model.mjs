@@ -1,10 +1,11 @@
 import { proposalSchema } from './policy.mjs';
+import { requestWithRetry } from './request.mjs';
 
 export async function propose({ instructions, context, feedback, model, apiKey, provider = 'openai' }) {
   if (provider === 'gemini') return proposeGemini({ instructions, context, feedback, model, apiKey });
   if (provider !== 'openai') throw new Error('Unsupported model provider');
-  const response = await fetch('https://api.openai.com/v1/responses', {
-    method: 'POST', signal: AbortSignal.timeout(180_000),
+  const response = await requestWithRetry('https://api.openai.com/v1/responses', {
+    method: 'POST',
     headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({ model, store: false, max_output_tokens: 10000,
       instructions, input: JSON.stringify({ untrustedRepository: context, untrustedFeedback: feedback }),
@@ -23,8 +24,8 @@ export async function propose({ instructions, context, feedback, model, apiKey, 
 
 async function proposeGemini({ instructions, context, feedback, model, apiKey }) {
   if (!/^gemini-[a-z0-9.-]+$/.test(model)) throw new Error('Invalid Gemini model identifier');
-  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-    method: 'POST', signal: AbortSignal.timeout(180_000),
+  const response = await requestWithRetry(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+    method: 'POST',
     headers: { 'x-goog-api-key': apiKey, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       systemInstruction: { parts: [{ text: instructions }] },
