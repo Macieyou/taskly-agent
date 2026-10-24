@@ -34,6 +34,14 @@ try {
     await buildSandbox(workspace, image);
     report.baseline = await verify(workspace, image, output, 'baseline');
     if (!passes(report.baseline)) throw new Error('Baseline fails. Fix the PR before generating additional tests.');
+    // Supply measured gaps, not just source: existing integration tests may
+    // already cover a changed component. Logs remain untrusted model input.
+    context.baselineCoverage = Object.fromEntries(['backend', 'frontend'].map(side => {
+      const result = report.baseline[side];
+      const start = result.log.indexOf('% Coverage report');
+      return [side, { totals: result.coverage, report: start < 0 ? '' : result.log.slice(start) }];
+    }));
+    if (Buffer.byteLength(JSON.stringify(context)) > limits.contextBytes) throw new Error('Context including baseline coverage exceeds limit; split the PR');
     // A fresh local Git index is only used to produce a reviewable patch, never to push.
     await checked('git', ['init', '--quiet'], { cwd: workspace });
     await checked('git', ['add', 'frontend', 'backend'], { cwd: workspace });
