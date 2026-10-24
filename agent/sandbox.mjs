@@ -30,18 +30,23 @@ cp coverage/coverage-summary.json /results/coverage.json`;
         '-e', 'DATABASE_URL=postgresql://test:test@localhost:5432/test', '-e', 'CI=true',
         image, 'sh', '-c', script], { timeout: 180_000 });
       let coverage = null;
+      let coverageByFile = {};
       if (result.code === 0) {
         const reportPath = path.join(out, 'coverage.json');
         const stat = await lstat(reportPath);
         if (!stat.isFile() || stat.isSymbolicLink() || stat.size > 500_000) throw new Error('Unsafe coverage report');
         const text = await readFile(reportPath, 'utf8');
         if (text.length > 500_000) throw new Error('Coverage report too large');
-        coverage = JSON.parse(text).total;
+        const parsed = JSON.parse(text);
+        coverage = parsed.total;
+        coverageByFile = Object.fromEntries(Object.entries(parsed)
+          .filter(([file]) => file.startsWith('/tmp/app/src/'))
+          .map(([file, metrics]) => [`${side}/${file.slice('/tmp/app/'.length)}`, metrics]));
         for (const metric of ['lines', 'statements', 'branches', 'functions']) {
           if (!Number.isFinite(coverage?.[metric]?.pct)) throw new Error('Invalid coverage report');
         }
       }
-      results[side] = { passed: result.code === 0, exitCode: result.code, coverage, log: result.output.slice(-14000) };
+      results[side] = { passed: result.code === 0, exitCode: result.code, coverage, coverageByFile, log: result.output.slice(-14000) };
     } finally {
       // Also stop containers when the client times out, not just the docker client process.
       await command('docker', ['rm', '--force', name]);

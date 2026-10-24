@@ -39,7 +39,8 @@ try {
     context.baselineCoverage = Object.fromEntries(['backend', 'frontend'].map(side => {
       const result = report.baseline[side];
       const start = result.log.indexOf('% Coverage report');
-      return [side, { totals: result.coverage, report: start < 0 ? '' : result.log.slice(start) }];
+      const changedFiles = Object.fromEntries(Object.entries(result.coverageByFile).filter(([file]) => context.changed.includes(file)));
+      return [side, { totals: result.coverage, changedFiles, report: start < 0 ? '' : result.log.slice(start) }];
     }));
     if (Buffer.byteLength(JSON.stringify(context)) > limits.contextBytes) throw new Error('Context including baseline coverage exceeds limit; split the PR');
     // A fresh local Git index is only used to produce a reviewable patch, never to push.
