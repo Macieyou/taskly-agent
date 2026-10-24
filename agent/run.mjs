@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { collect, requireSha } from './context.mjs';
 import { skills, limits, validateProposal, mergeRepair, changedTestFiles } from './policy.mjs';
-import { buildSandbox, verify, passes } from './sandbox.mjs';
+import { buildSandbox, verify, passes, coverageImproved } from './sandbox.mjs';
 import { checked, command } from './process.mjs';
 import { propose } from './model.mjs';
 
@@ -91,6 +91,11 @@ try {
       }
       report.final = await verify(workspace, image, output, `attempt-${attempt}`);
       if (passes(report.final, report.baseline)) {
+        if (attempt < limits.attempts && !coverageImproved(report.final, report.baseline)) {
+          feedback = { previousProposal: proposal, validation: report.final,
+            instruction: 'Tests pass but no coverage metric increased. Preserve these useful assertions and use the remaining attempt to cover uncovered behavior in changed source. Read baselineCoverage and target missing handlers/branches instead of duplicate happy paths. Do not alter production code or coverage configuration. If no useful gap is reachable, return the same passing proposal.' };
+          continue;
+        }
         const patch = await checked('git', ['diff', '--no-ext-diff', '--binary', '--', 'frontend', 'backend'], { cwd: workspace });
         if (!patch.trim()) throw new Error('Agent proposed no effective changes');
         await writeFile(path.join(output, 'tests.patch'), patch);
