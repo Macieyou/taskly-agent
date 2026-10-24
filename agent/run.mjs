@@ -1,3 +1,4 @@
+import { validateTestIntegrity } from './test-integrity.mjs';
 import { mkdir, readFile, writeFile, mkdtemp, rm, chmod } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
@@ -55,6 +56,7 @@ try {
         report.summary = 'Existing tests were returned unchanged apart from line endings or trailing whitespace; no new tests or patch published.';
         break;
       }
+      for (const file of changedTestFiles(proposal.files, files)) validateTestIntegrity(file.path, file.content, files.get(file.path));
       // Every attempt starts from the same PR snapshot, not from previous failed output.
       for (const file of allowedTests) {
         if (files.has(file)) await writeFile(path.join(workspace, file), files.get(file));

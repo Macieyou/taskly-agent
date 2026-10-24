@@ -13,7 +13,7 @@ export function isSource(file) {
     && !/\/(generated|test)\//.test(file);
 }
 export function isTest(file) {
-  return safePath(file) && /^(frontend\/src\/.*\.test\.tsx?|backend\/tests\/.*\.test\.ts)$/.test(file);
+  return safePath(file) && /^(frontend\/src\/.*\.(?:test|spec)\.tsx?|backend\/tests\/.*\.(?:test|spec)\.ts)$/.test(file);
 }
 export function validateProposal(value, allowedTests) {
   if (!value || !['edit', 'skip'].includes(value.decision) || typeof value.summary !== 'string'
