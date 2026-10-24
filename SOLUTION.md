@@ -2,7 +2,7 @@
 
 ## Design
 
-The custom Node.js controller in `agent/run.mjs` reads the immutable PR diff, loads `agent/AGENT.md` and three reusable skills from `agent/skills/`, asks Gemini for a structured test proposal, and verifies it. It can explicitly skip already-covered changes or repair a failed proposal once. The controller uses standard Node APIs and a pinned TypeScript parser for test-integrity checks, with no agent framework dependency: the state transitions and trust boundaries remain easy to audit.
+The custom Node.js controller in `agent/run.mjs` reads the immutable PR diff, loads `agent/AGENT.md` and three reusable skills from `agent/skills/`, asks Gemini for a structured test proposal, and verifies it. It can explicitly skip already-covered changes. It uses at most two proposal attempts: the second can repair a failed test/policy check or refine a passing proposal that did not cover any additional statements, lines, branches or functions. Baseline coverage gaps are supplied as untrusted context; a passing proposal may still add useful assertions without increasing coverage. The controller uses standard Node APIs and a pinned TypeScript parser for test-integrity checks, with no agent framework dependency: the state transitions and trust boundaries remain easy to audit.
 
 Skills are executable workflow inputs, not decorative documentation. `pr-test-review` guides test selection; `frontend-unit-tests` covers React, real query providers and MSW; `backend-unit-tests` covers Express, validation and Prisma IO. All three are supplied as trusted instructions, and each model decision records which it used. The agent only writes allowlisted test files. Product code, dependency manifests and coverage configuration are immutable during generation.
 
