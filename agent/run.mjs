@@ -1,4 +1,5 @@
 import { validateTestIntegrity } from './test-integrity.mjs';
+import { focusContext } from './focus.mjs';
 import { mkdir, readFile, writeFile, mkdtemp, rm, chmod } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
@@ -43,14 +44,17 @@ try {
       return [side, { totals: result.coverage, changedFiles, report: start < 0 ? '' : result.log.slice(start) }];
     }));
     if (Buffer.byteLength(JSON.stringify(context)) > limits.contextBytes) throw new Error('Context including baseline coverage exceeds limit; split the PR');
+    const generationContext = focusContext(context, report.baseline);
+    const generationAllowedTests = new Set(generationContext.allowedTests);
+    report.focusTargets = generationContext.focusTargets ?? context.changed;
     // A fresh local Git index is only used to produce a reviewable patch, never to push.
     await checked('git', ['init', '--quiet'], { cwd: workspace });
     await checked('git', ['add', 'frontend', 'backend'], { cwd: workspace });
     let feedback = null;
     for (let attempt = 1; attempt <= limits.attempts; attempt += 1) {
       console.log(`Agent attempt ${attempt}/${limits.attempts}`);
-      const result = await propose({ instructions, context, feedback, model: report.model, apiKey, provider });
-      const proposal = validateProposal(mergeRepair(feedback?.previousProposal, result.proposal), allowedTests);
+      const result = await propose({ instructions, context: generationContext, feedback, model: report.model, apiKey, provider });
+      const proposal = validateProposal(mergeRepair(feedback?.previousProposal, result.proposal), generationAllowedTests);
       report.attempts.push({ number: attempt, decision: proposal.decision, summary: proposal.summary,
         skills: proposal.skills, files: proposal.files.map((file) => file.path), usage: result.usage, responseId: result.responseId });
       report.summary = proposal.summary;

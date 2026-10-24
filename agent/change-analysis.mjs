@@ -14,7 +14,7 @@ export function parseChanges(output) {
   return changes;
 }
 
-function importsOf(file, content, files) {
+export function importsOf(file, content, files) {
   const imports = [];
   const expression = /(?:\bfrom\s*|\bimport\s*\(\s*|\bimport\s*)['"]([^'"]+)['"]/g;
   for (const match of content.matchAll(expression)) {
