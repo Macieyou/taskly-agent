@@ -9,7 +9,12 @@ it('focuses the first invalid input when validation fails', async () => {
   const user = userEvent.setup()
   render(
     <ThemeProvider theme={theme}>
-      <TodoForm onSubmit={vi.fn()} onCancel={vi.fn()} busy={false} error={null} />
+      <TodoForm
+        onSubmit={vi.fn()}
+        onCancel={vi.fn()}
+        busy={false}
+        error={null}
+      />
     </ThemeProvider>,
   )
   await user.click(screen.getByRole('button', { name: 'Save task' }))
