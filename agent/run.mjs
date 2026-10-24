@@ -60,7 +60,12 @@ try {
         report.status = 'skipped'; break;
       }
       if (!changedTestFiles(proposal.files, files).length) {
-        if (attempt > 1) throw new Error('Repair produced no effective test changes');
+        if (attempt < limits.attempts) {
+          feedback = { previousProposal: proposal, validation: { unchanged: true },
+            instruction: 'Your edit proposal returned existing test files unchanged. No new assertions or coverage were added. Add genuinely new cases for the missing coverage in baselineCoverage.changedFiles (per package), preserving all original statements. Return only files with actual additions. Do not claim to have added tests that already exist.' };
+          continue;
+        }
+        if (feedback?.validation?.unchanged !== true) throw new Error('Repair produced no effective test changes');
         report.status = 'skipped';
         report.summary = 'Existing tests were returned unchanged apart from line endings or trailing whitespace; no new tests or patch published.';
         break;
