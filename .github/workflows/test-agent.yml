@@ -28,6 +28,8 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: .nvmrc
+      - name: Install trusted controller dependencies
+        run: npm ci --prefix agent --ignore-scripts
       - name: Fetch immutable PR data
         env:
           PR_HEAD: ${{ github.event.pull_request.head.sha }}

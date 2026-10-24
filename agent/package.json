@@ -1,0 +1,8 @@
+{
+  "name": "taskly-test-agent",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24" },
+  "dependencies": { "typescript": "5.8.3" },
+  "scripts": { "test": "node --test *.test.mjs" }
+}

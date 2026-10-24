@@ -1,3 +1,4 @@
+import { parseChanges, mapTests } from './change-analysis.mjs';
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { checked } from './process.mjs';
@@ -9,8 +10,8 @@ export function requireSha(value) {
 }
 export async function collect(base, head, destination) {
   requireSha(base); requireSha(head);
-  const names = (await checked('git', ['diff', '--name-only', '--diff-filter=ACMR', `${base}...${head}`, '--', 'frontend/src', 'backend/src']))
-    .trim().split('\n').filter(isSource);
+  const changes = parseChanges(await checked('git', ['diff', '--name-status', '-z', '--find-renames', `${base}...${head}`, '--', 'frontend/src', 'backend/src']));
+  const names = [...new Set(changes.flatMap(change => [change.before, change.after]))];
   if (names.length > 15) throw new Error('PR too large: split into at most 15 changed source files');
   const entries = (await checked('git', ['ls-tree', '-r', head, '--', 'frontend', 'backend'])).trim().split('\n');
   const files = new Map(); let total = 0;
@@ -28,11 +29,15 @@ export async function collect(base, head, destination) {
     await mkdir(path.dirname(path.join(destination, file)), { recursive: true });
     await writeFile(path.join(destination, file), content);
   }
-  const allowedTests = new Set();
-  for (const name of names) {
-    allowedTests.add(name.startsWith('frontend/') ? name.replace(/\.(tsx?)$/, '.test.$1')
-      : `backend/tests/${path.posix.basename(name, '.ts')}.test.ts`);
+  const ancestor = (await checked('git', ['merge-base', base, head])).trim();
+  requireSha(ancestor);
+  const previousFiles = new Map();
+  const previousEntries = (await checked('git', ['ls-tree', '-r', ancestor, '--', 'frontend', 'backend'])).trim().split('\n');
+  for (const entry of previousEntries) {
+    const match = /^(100644|100755) blob ([a-f0-9]{40})\t(.+\.(?:ts|tsx))$/.exec(entry);
+    if (match && safePath(match[3])) previousFiles.set(match[3], await checked('git', ['cat-file', 'blob', match[2]], { maxBytes: 2_000_000 }));
   }
+  const allowedTests = mapTests(changes, files, previousFiles);
   const contextFiles = [...files].filter(([name]) => {
     if (!/\.(ts|tsx|json)$/.test(name) || /package-lock|openapi|\.stories\.|\/\.storybook\//.test(name)) return false;
     if (isTest(name)) return allowedTests.has(name);
@@ -41,7 +46,7 @@ export async function collect(base, head, destination) {
   });
   // Changed files and nearby tests come first; do not silently truncate a review.
   contextFiles.sort(([a], [b]) => Number(names.includes(b)) - Number(names.includes(a)));
-  const context = { changed: names, allowedTests: [...allowedTests], files: Object.fromEntries(contextFiles),
+  const context = { changes, changed: names, allowedTests: [...allowedTests], files: Object.fromEntries(contextFiles),
     diff: await checked('git', ['diff', '--no-ext-diff', '--unified=3', `${base}...${head}`, '--', ...names], { maxBytes: limits.contextBytes }) };
   if (Buffer.byteLength(JSON.stringify(context)) > limits.contextBytes) throw new Error('Context too large; split the PR');
   return { context, files, allowedTests };
