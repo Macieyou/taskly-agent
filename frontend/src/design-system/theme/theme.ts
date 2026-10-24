@@ -10,7 +10,7 @@ export const theme = {
     primaryStrong: '#155c69',
     accent: '#e38b2c',
     accentSoft: '#f9e6cf',
-    success: '#2e8b57',
+    success: '#216b42',
     warning: '#b4471b',
     info: '#3c5a89',
     shadow: 'rgba(18, 33, 43, 0.12)',
