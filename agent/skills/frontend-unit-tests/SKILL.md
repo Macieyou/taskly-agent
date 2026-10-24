@@ -15,3 +15,4 @@ Read the changed implementation, its consumers, closest tests and fixture. Ident
 - HTTP: MSW 3 `setupServer`, explicit handlers, `server.listen({ onUnhandledFrame: 'error' })`, reset between tests. For testing the HTTP transport itself, a stub of the external `fetch` boundary is acceptable, including cancellation and invalid response bodies.
 - Use short Given/When/Then sections where they clarify a nontrivial test. Restore mocks, timers and globals after each case.
 - Run the whole frontend suite and type check; do not assume passing the new test alone is sufficient.
+`nIf the original test file mocks owned components or hooks, preserve it and add a separate allowlisted .regression.test.tsx file using real providers. Cover changed behavior and previously uncovered validation/error paths. Prefer complete fixtures and specific accessible assertions.
