@@ -155,3 +155,9 @@ export function coverageImproved(results, baseline) {
     ),
   )
 }
+
+export function coverageImproved(results, baseline) {
+  return ['backend', 'frontend'].some(side =>
+    ['lines', 'statements', 'branches', 'functions'].some(metric =>
+      results[side].coverage[metric].covered > baseline[side].coverage[metric].covered));
+}
