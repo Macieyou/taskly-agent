@@ -153,6 +153,47 @@
           }
         }
       }
+    },
+    "/api/todos/summary": {
+      "get": {
+        "summary": "Summarize all tasks",
+        "responses": {
+          "200": {
+            "description": "Counts and rounded completion percentage; empty lists report zero.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "total",
+                    "active",
+                    "completed",
+                    "completionPercent"
+                  ],
+                  "properties": {
+                    "total": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "active": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "completed": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "completionPercent": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {

@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 import type { TodoInput } from '../types'
 import { priorityLabels, validateTodo } from '../utils/todos'
 import { Alert, Button, Input, Select, Text } from '../../../design-system'
@@ -26,6 +26,12 @@ export function TodoForm({
 }) {
   const [values, setValues] = useState<TodoInput>({ ...initial })
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const formRef = useRef<HTMLFormElement>(null)
+  useEffect(() => {
+    formRef.current
+      ?.querySelector<HTMLElement>('[aria-invalid="true"]')
+      ?.focus()
+  }, [errors])
   const change = (key: keyof TodoInput, value: string | null) =>
     setValues((current) => ({ ...current, [key]: value }))
   function submit(event: FormEvent) {
@@ -40,14 +46,13 @@ export function TodoForm({
       })
   }
   return (
-    <form onSubmit={submit} noValidate className="stack">
+    <form ref={formRef} onSubmit={submit} noValidate className="stack">
       <Text muted>
         Write down what is on your mind. Make room to get things done.
       </Text>
       <fieldset disabled={busy} className="form-fields stack">
         <div className="field">
           <Input
-            autoFocus
             id="title"
             label="Task title *"
             value={values.title}

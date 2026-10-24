@@ -71,3 +71,13 @@ it('deletes a task with an empty response, then reports missing resources', asyn
   expect(deleted.text).toBe('');
   expect((await request(app).delete('/api/todos/1')).status).toBe(404);
 });
+
+it('returns the summary route before matching a task ID', async () => {
+  const { app, repository } = setup();
+  repository.list.mockResolvedValueOnce([todo, { ...todo, id: 2, completed: true }]);
+  const response = await request(app).get('/api/todos/summary');
+  expect(response.status).toBe(200);
+  expect(response.body).toEqual({ total: 2, active: 1, completed: 1, completionPercent: 50 });
+  expect(repository.list).toHaveBeenCalledOnce();
+  expect(repository.get).not.toHaveBeenCalled();
+});
