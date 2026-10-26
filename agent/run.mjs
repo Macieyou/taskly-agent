@@ -21,6 +21,7 @@ import {
 import { buildSandbox, verify, passes, coverageImproved } from './sandbox.mjs'
 import { checked, command } from './process.mjs'
 import { propose } from './model.mjs'
+import { isDocumentationUpdate } from './update-scope.mjs'
 
 const output = path.resolve('agent-output')
 await mkdir(output, { recursive: true })
@@ -50,6 +51,10 @@ let image
 try {
   requireSha(report.head)
   requireSha(report.base)
+  const event = process.env.GITHUB_EVENT_PATH
+    ? JSON.parse(await readFile(process.env.GITHUB_EVENT_PATH, 'utf8'))
+    : null
+  const documentationOnly = await isDocumentationUpdate(event, report.head)
   workspace = await mkdtemp(path.join(tmpdir(), 'taskly-agent-'))
   await chmod(workspace, 0o755)
   const { context, files, allowedTests } = await collect(
@@ -58,10 +63,11 @@ try {
     workspace,
   )
   report.changed = context.changed
-  if (!context.changed.length) {
+  if (documentationOnly || !context.changed.length) {
     report.status = 'skipped'
-    report.summary =
-      'No changed production TypeScript files; no model call or test generation required.'
+    report.summary = documentationOnly
+      ? 'This update changes documentation only. Model generation was not rerun; this is not a verification of an earlier proposal. Ordinary CI checks the current head.'
+      : 'No changed production TypeScript files; no model call or test generation required.'
   } else {
     if (!apiKey) throw new Error('Model API key repository secret is missing')
     const instructions = [
