@@ -2,11 +2,14 @@ export async function request(
   path: string,
   init?: RequestInit,
 ): Promise<unknown> {
+  const headers = new Headers(init?.headers)
+  if (!headers.has('Content-Type'))
+    headers.set('Content-Type', 'application/json')
   let response: Response
   try {
     response = await fetch(`/api${path}`, {
       ...init,
-      headers: { 'Content-Type': 'application/json', ...init?.headers },
+      headers,
     })
   } catch (error) {
     if (init?.signal?.aborted) throw error
@@ -30,6 +33,16 @@ export async function request(
     )
   }
   if (response.status === 204) return undefined
-  const body: unknown = await response.json()
-  return body
+  try {
+    const body: unknown = await response.json()
+    return body
+  } catch (error) {
+    if (init?.signal?.aborted) throw error
+    throw new Error(
+      'The server returned an invalid response. Please try again.',
+      {
+        cause: error,
+      },
+    )
+  }
 }

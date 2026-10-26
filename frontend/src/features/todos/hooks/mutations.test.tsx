@@ -118,7 +118,7 @@ it.each([false, true])(
   },
 )
 it('exposes busy state while a request is pending and clears it on completion', async () => {
-  let release!: () => void
+  let release: (() => void) | undefined
   const pending = new Promise<void>((resolve) => {
     release = resolve
   })
@@ -135,6 +135,7 @@ it('exposes busy state while a request is pending and clears it on completion', 
   )
   act(() => result.current.mutation.mutate(todoFixture))
   await waitFor(() => expect(result.current.busy).toBe(true))
+  if (!release) throw new Error('Pending request resolver was not initialized')
   release()
   await waitFor(() => expect(result.current.busy).toBe(false))
   expect(result.current.mutation.isSuccess).toBe(true)
