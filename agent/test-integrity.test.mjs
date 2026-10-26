@@ -33,3 +33,19 @@ test('rejects focused, conditional and skipped execution, any and assertion-free
     assert.throws(() => validateTestIntegrity('x.test.ts', content))
   }
 })
+
+test('rejects type-check bypasses but accepts const assertions and satisfies', () => {
+  for (const content of [
+    'const x = input as unknown as User; expect(x).toBeDefined();',
+    'const x = <User>input; expect(x).toBeDefined();',
+    'expect(input!.id).toBe(1);',
+  ]) {
+    assert.throws(() => validateTestIntegrity('x.test.ts', content))
+  }
+  for (const content of [
+    "const x = { status: 'open' } as const; expect(x.status).toBe('open');",
+    'const x = { id: 1 } satisfies User; expect(x.id).toBe(1);',
+  ]) {
+    assert.doesNotThrow(() => validateTestIntegrity('x.test.ts', content))
+  }
+})

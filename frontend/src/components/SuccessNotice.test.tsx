@@ -1,28 +1,22 @@
-import { render, screen } from '@testing-library/react'
-import { beforeEach, expect, it, vi } from 'vitest'
-import { Alert } from '../design-system'
+import { screen } from '@testing-library/react'
+import { expect, it } from 'vitest'
+import { renderWithTheme } from '../test/renderWithTheme'
 import { SuccessNotice } from './SuccessNotice'
 
-vi.mock('../design-system', () => import('../design-system/mocks'))
-beforeEach(() => vi.clearAllMocks())
-
 it('renders nothing without a message', () => {
-  const { container } = render(<SuccessNotice message="" />)
+  const { container } = renderWithTheme(<SuccessNotice message="" />)
   expect(container).toBeEmptyDOMElement()
-  expect(Alert).not.toHaveBeenCalled()
+  expect(screen.queryByRole('status')).not.toBeInTheDocument()
 })
 
-it('passes success messages to Alert and removes the notice when cleared', () => {
-  const { container, rerender } = render(
+it('announces success messages and removes the notice when cleared', () => {
+  const { container, rerender } = renderWithTheme(
     <SuccessNotice message="Task created." />,
   )
-  expect(screen.getByTestId('alert')).toHaveTextContent('Task created.')
-  expect(vi.mocked(Alert).mock.calls[0][0]).toEqual(
-    expect.objectContaining({ variant: 'success' }),
-  )
+  expect(screen.getByRole('status')).toHaveTextContent('Task created.')
   rerender(<SuccessNotice message="Task deleted." />)
-  expect(screen.getAllByTestId('alert')).toHaveLength(1)
-  expect(screen.getByTestId('alert')).toHaveTextContent('Task deleted.')
+  expect(screen.getAllByRole('status')).toHaveLength(1)
+  expect(screen.getByRole('status')).toHaveTextContent('Task deleted.')
   expect(screen.queryByText('Task created.')).not.toBeInTheDocument()
   rerender(<SuccessNotice message="" />)
   expect(container).toBeEmptyDOMElement()

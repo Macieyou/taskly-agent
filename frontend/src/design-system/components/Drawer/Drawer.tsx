@@ -16,8 +16,8 @@ export function Drawer({
   const ref = useRef<HTMLDialogElement>(null)
   const titleId = useId()
   useEffect(() => {
-    const dialog = ref.current!
-    if (!isOpen) return
+    const dialog = ref.current
+    if (!isOpen || !dialog) return
     dialog.showModal()
     const field = dialog.querySelector<HTMLElement>(
       'input:not(:disabled), textarea:not(:disabled), select:not(:disabled)',

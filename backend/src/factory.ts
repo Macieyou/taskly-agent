@@ -17,7 +17,7 @@ export function createApp(database: Database) {
   )
   if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed))
     throw new Error('OpenAPI specification must be an object')
-  const specification = parsed as Record<string, unknown>
+  const specification = parsed
   app.get('/openapi.json', (req, res) => res.json(specification))
   app.use('/docs', swaggerUi.serve, swaggerUi.setup(specification))
   app.use((req, res) => res.status(404).json({ detail: 'Not Found' }))

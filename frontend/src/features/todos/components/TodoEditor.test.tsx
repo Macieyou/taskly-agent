@@ -1,48 +1,47 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { expect, it, vi } from 'vitest'
+import { http, HttpResponse } from 'msw'
+import { setupServer } from 'msw/node'
+import { afterAll, afterEach, beforeAll, expect, it, vi } from 'vitest'
+import { renderWithProviders } from '../../../test/renderWithProviders'
 import { todoFixture } from '../../../test/todoFixture'
-import { useCreateTodoMutation } from '../hooks/useCreateTodoMutation'
-import { useUpdateTodoMutation } from '../hooks/useUpdateTodoMutation'
 import type { TodoInput } from '../types'
 import { TodoEditor } from './TodoEditor'
 
-vi.mock('../../../design-system', () => import('../../../design-system/mocks'))
-vi.mock('../hooks/useCreateTodoMutation', () => ({
-  useCreateTodoMutation: vi.fn(),
-}))
-vi.mock('../hooks/useUpdateTodoMutation', () => ({
-  useUpdateTodoMutation: vi.fn(),
-}))
-vi.mock('./TodoForm', () => ({
-  TodoForm: ({
-    onSubmit,
-  }: {
-    onSubmit: (input: TodoInput) => Promise<void>
-  }) => <button onClick={() => void onSubmit(todoFixture)}>Submit form</button>,
-}))
+const server = setupServer()
+beforeAll(() => server.listen({ onUnhandledFrame: 'error' }))
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())
 
-it('creates a new task and reports a successful save', async () => {
+it('submits writable form fields and reports a successful create', async () => {
+  let received: unknown
+  server.use(
+    http.post('*/api/todos', async ({ request }) => {
+      received = await request.json()
+      return HttpResponse.json(todoFixture, { status: 201 })
+    }),
+  )
   const user = userEvent.setup()
-  const create = vi.fn().mockResolvedValue(todoFixture)
-  const update = vi.fn()
-  vi.mocked(useCreateTodoMutation).mockReturnValue({
-    isPending: false,
-    error: null,
-    mutateAsync: create,
-  } as unknown as ReturnType<typeof useCreateTodoMutation>)
-  vi.mocked(useUpdateTodoMutation).mockReturnValue({
-    isPending: false,
-    error: null,
-    mutateAsync: update,
-  } as unknown as ReturnType<typeof useUpdateTodoMutation>)
   const onSaved = vi.fn()
-  render(
-    <TodoEditor todo="new" busy={false} onClose={vi.fn()} onSaved={onSaved} />,
+  const onClose = vi.fn()
+  renderWithProviders(
+    <TodoEditor todo="new" busy={false} onClose={onClose} onSaved={onSaved} />,
   )
   expect(screen.getByRole('dialog', { name: 'New task' })).toBeVisible()
-  await user.click(screen.getByRole('button', { name: 'Submit form' }))
+  await user.type(
+    screen.getByRole('textbox', { name: 'Task title *' }),
+    todoFixture.title,
+  )
+  await user.click(screen.getByRole('button', { name: 'Save task' }))
   await waitFor(() => expect(onSaved).toHaveBeenCalledWith('New task added.'))
-  expect(create).toHaveBeenCalledWith(todoFixture)
-  expect(update).not.toHaveBeenCalled()
+  expect(onSaved).toHaveBeenCalledTimes(1)
+  expect(onClose).not.toHaveBeenCalled()
+  const expected: TodoInput = {
+    title: todoFixture.title,
+    description: '',
+    priority: 'medium',
+    due_date: null,
+    completed: false,
+  }
+  expect(received).toEqual(expected)
 })

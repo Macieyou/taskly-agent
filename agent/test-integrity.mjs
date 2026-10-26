@@ -31,6 +31,19 @@ export function validateTestIntegrity(file, content, original) {
   const visit = (node) => {
     if (node.kind === ts.SyntaxKind.AnyKeyword)
       throw new Error('Generated tests must not use any')
+    if (ts.isNonNullExpression(node))
+      throw new Error('Generated tests must narrow nullable values')
+    if (
+      (ts.isAsExpression(node) || ts.isTypeAssertionExpression(node)) &&
+      !(
+        ts.isTypeReferenceNode(node.type) &&
+        ts.isIdentifier(node.type.typeName) &&
+        node.type.typeName.text === 'const'
+      )
+    )
+      throw new Error(
+        'Generated tests must not use type assertions except const',
+      )
     if (
       ts.isPropertyAccessExpression(node) &&
       ['skip', 'skipIf', 'only', 'todo', 'runIf'].includes(node.name.text)

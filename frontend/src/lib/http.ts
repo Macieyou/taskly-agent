@@ -1,4 +1,7 @@
-export async function request<T>(path: string, init?: RequestInit): Promise<T> {
+export async function request(
+  path: string,
+  init?: RequestInit,
+): Promise<unknown> {
   let response: Response
   try {
     response = await fetch(`/api${path}`, {
@@ -26,8 +29,7 @@ export async function request<T>(path: string, init?: RequestInit): Promise<T> {
         : 'The operation failed. Please try again.',
     )
   }
-  if (response.status === 204) return undefined as T
+  if (response.status === 204) return undefined
   const body: unknown = await response.json()
-  // Endpoint callers supply the response contract; JSON is untrusted until this boundary.
-  return body as T
+  return body
 }

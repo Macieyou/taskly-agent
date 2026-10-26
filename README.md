@@ -38,6 +38,8 @@ npm run format:check
 
 `npm run lint:fix` applies ESLint's automatic fixes; `npm run format` formats frontend, backend and agent files with the shared Prettier configuration. ESLint uses type-aware TypeScript rules, React hook rules and recommended JavaScript rules for the agent. CI rejects lint errors or warnings and formatting differences. Generated Prisma files, build output, coverage and archived evidence are excluded from formatting/linting.
 
+Authored TypeScript rejects explicit `any`, unsafe type assertions and non-null assertions. API responses stay `unknown` until validated. Component tests use real components, isolated query providers and MSW at the HTTP boundary. Portable engineering conventions live in `AGENTS.md`; the agent's reusable testing skills are in `agent/skills`.
+
 ## Frontend
 
 React + TypeScript + Vite. Tests: Vitest + React Testing Library.

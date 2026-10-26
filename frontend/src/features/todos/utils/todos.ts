@@ -3,6 +3,15 @@ import type { Filter, Sort, Todo, TodoInput } from '../types'
 export const priorityLabels = { low: 'Low', medium: 'Medium', high: 'High' }
 const priorityOrder = { high: 0, medium: 1, low: 2 }
 
+export function isCalendarDate(value: string): boolean {
+  const date = new Date(`${value}T00:00:00Z`)
+  return (
+    /^\d{4}-\d{2}-\d{2}$/.test(value) &&
+    Number.isFinite(date.getTime()) &&
+    date.toISOString().slice(0, 10) === value
+  )
+}
+
 export function validateTodo(input: TodoInput): Record<string, string> {
   const errors: Record<string, string> = {}
   if (!input.title.trim()) errors.title = 'Enter a task title.'
@@ -10,16 +19,8 @@ export function validateTodo(input: TodoInput): Record<string, string> {
     errors.title = 'The title must be at most 120 characters.'
   if (input.description.trim().length > 2000)
     errors.description = 'The description must be at most 2000 characters.'
-  if (input.due_date) {
-    const date = new Date(`${input.due_date}T00:00:00Z`)
-    if (
-      !/^\d{4}-\d{2}-\d{2}$/.test(input.due_date) ||
-      Number.isNaN(date.getTime()) ||
-      date.toISOString().slice(0, 10) !== input.due_date
-    ) {
-      errors.due_date = 'Enter a valid date.'
-    }
-  }
+  if (input.due_date && !isCalendarDate(input.due_date))
+    errors.due_date = 'Enter a valid date.'
   return errors
 }
 
