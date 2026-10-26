@@ -1,38 +1,34 @@
-import { QueryClient } from '@tanstack/react-query'
-import { render, screen, waitFor, within } from '@testing-library/react'
+import { screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {
-  afterAll,
-  afterEach,
-  beforeAll,
-  beforeEach,
-  expect,
-  it,
-  vi,
-} from 'vitest'
+import { afterAll, afterEach, beforeAll, beforeEach, expect, it } from 'vitest'
 import { http, HttpResponse } from 'msw'
 import { setupServer } from 'msw/node'
-import { AppProviders } from '../../app/AppProviders'
+import { renderWithProviders } from '../../test/renderWithProviders'
 import { todoFixture } from '../../test/todoFixture'
-import type { Todo, TodoInput } from './types'
+import type { Todo } from './types'
+import { parseTodo } from './api/parseTodo'
 import { TodosPage } from './TodosPage'
 
 let todos: Todo[]
-const clients: QueryClient[] = []
+async function readInput(request: Request): Promise<object> {
+  const input: unknown = await request.json()
+  if (typeof input !== 'object' || input === null || Array.isArray(input))
+    throw new Error('Expected a task object')
+  return input
+}
 const server = setupServer(
   http.get('*/api/todos', () => HttpResponse.json(todos)),
   http.post('*/api/todos', async ({ request }) => {
-    const input = (await request.json()) as TodoInput
-    const saved = { ...todoFixture, ...input, id: 20 }
+    const input = await readInput(request)
+    const saved = parseTodo({ ...todoFixture, ...input, id: 20 })
     todos = [saved, ...todos]
     return HttpResponse.json(saved, { status: 201 })
   }),
   http.patch('*/api/todos/:id', async ({ request, params }) => {
-    const input = (await request.json()) as Partial<TodoInput>
-    const saved = {
-      ...todos.find((todo) => todo.id === Number(params.id))!,
-      ...input,
-    }
+    const input = await readInput(request)
+    const existing = todos.find((todo) => todo.id === Number(params.id))
+    if (!existing) return new HttpResponse(null, { status: 404 })
+    const saved = parseTodo({ ...existing, ...input })
     todos = todos.map((todo) => (todo.id === saved.id ? saved : todo))
     return HttpResponse.json(saved)
   }),
@@ -41,45 +37,14 @@ const server = setupServer(
     return new HttpResponse(null, { status: 204 })
   }),
 )
-beforeAll(() => {
-  server.listen({ onUnhandledFrame: 'error' })
-  Object.defineProperty(HTMLDialogElement.prototype, 'showModal', {
-    configurable: true,
-    value: function (this: HTMLDialogElement) {
-      this.open = true
-    },
-  })
-  Object.defineProperty(HTMLDialogElement.prototype, 'close', {
-    configurable: true,
-    value: function (this: HTMLDialogElement) {
-      this.open = false
-    },
-  })
-})
+beforeAll(() => server.listen({ onUnhandledFrame: 'error' }))
 beforeEach(() => {
   todos = [todoFixture]
-  // jsdom has no native modal implementation; only polyfill the browser boundary.
 })
-afterEach(() => {
-  server.resetHandlers()
-  vi.restoreAllMocks()
-  clients.splice(0).forEach((client) => client.clear())
-})
-afterAll(() => {
-  server.close()
-  Reflect.deleteProperty(HTMLDialogElement.prototype, 'showModal')
-  Reflect.deleteProperty(HTMLDialogElement.prototype, 'close')
-})
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())
 function renderPage() {
-  const client = new QueryClient({
-    defaultOptions: { queries: { retry: false }, mutations: { retry: false } },
-  })
-  clients.push(client)
-  return render(
-    <AppProviders client={client}>
-      <TodosPage />
-    </AppProviders>,
-  )
+  return renderWithProviders(<TodosPage />)
 }
 it('creates, edits, completes and deletes tasks through real components and query hooks', async () => {
   const user = userEvent.setup()
