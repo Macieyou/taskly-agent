@@ -264,7 +264,7 @@ try {
         previousProposal: proposal,
         validation: report.final,
         instruction:
-          'Repair failing tests or coverage regression. Keep all existing assertions; do not change source.',
+          'Repair failing tests or coverage regression. Keep all existing assertions; do not change source. A timed-out user.type can continue mutating the DOM and break the next existing test: fix the new slow test first, never rewrite the affected existing case. For long input validation use a complete initial-value fixture (TodoForm accepts initial: TodoInput) or user.paste after focusing; never type thousands of characters or raise timeouts. Read the source to supply every required initial field.',
       }
     }
     if (report.status === 'failed')
