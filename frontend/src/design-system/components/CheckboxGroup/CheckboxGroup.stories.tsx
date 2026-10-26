@@ -18,14 +18,14 @@ export default meta
 type Story = StoryObj<typeof CheckboxGroup>
 
 export const Default: Story = {
-  render: (args) => {
+  render: function DefaultCheckboxGroup(args) {
     const [value, setValue] = useState<string[]>(['Product Owner'])
     return <CheckboxGroup {...args} value={value} onChange={setValue} />
   },
 }
 
 export const WithError: Story = {
-  render: (args) => {
+  render: function CheckboxGroupWithError(args) {
     const [value, setValue] = useState<string[]>([])
     return (
       <CheckboxGroup

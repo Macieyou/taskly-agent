@@ -31,7 +31,10 @@ it('validates trimmed length boundaries', () => {
       title: 'x'.repeat(121),
       description: 'x'.repeat(2001),
     }),
-  ).toEqual({ title: expect.any(String), description: expect.any(String) })
+  ).toEqual({
+    title: expect.any(String) as unknown,
+    description: expect.any(String) as unknown,
+  })
 })
 it('sorts by priority and breaks ties without mutating input', () => {
   const todos = [
