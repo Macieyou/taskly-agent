@@ -19,10 +19,10 @@ jobs:
     permissions:
       contents: read
     steps:
-      # Deliberately checkout BASE, never PR head. The head is parsed as data.
+      # Use the trusted workflow revision, never PR head. A PR payload may retain an older base SHA.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: ${{ github.event.pull_request.base.sha }}
+          ref: ${{ github.workflow_sha }}
           fetch-depth: 0
           persist-credentials: false
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
