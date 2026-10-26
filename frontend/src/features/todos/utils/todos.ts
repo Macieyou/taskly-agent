@@ -1,7 +1,11 @@
-import type { Filter, Sort, Todo, TodoInput } from '../types'
+import type { Filter, Priority, Sort, Todo, TodoInput } from '../types'
 
 export const priorityLabels = { low: 'Low', medium: 'Medium', high: 'High' }
 const priorityOrder = { high: 0, medium: 1, low: 2 }
+
+export function isPriority(value: unknown): value is Priority {
+  return value === 'low' || value === 'medium' || value === 'high'
+}
 
 export function isCalendarDate(value: string): boolean {
   const date = new Date(`${value}T00:00:00Z`)

@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import type { TodoInput } from '../types'
-import { priorityLabels, validateTodo } from '../utils/todos'
+import { isPriority, priorityLabels, validateTodo } from '../utils/todos'
 import { Alert, Button, Input, Select, Text } from '../../../design-system'
 
 const emptyTodo: TodoInput = {
@@ -26,8 +26,8 @@ export function TodoForm({
 }) {
   const [values, setValues] = useState<TodoInput>({ ...initial })
   const [errors, setErrors] = useState<Record<string, string>>({})
-  const change = (key: keyof TodoInput, value: string | null) =>
-    setValues((current) => ({ ...current, [key]: value }))
+  const change = (patch: Partial<TodoInput>) =>
+    setValues((current) => ({ ...current, ...patch }))
   function submit(event: FormEvent) {
     event.preventDefault()
     const nextErrors = validateTodo(values)
@@ -51,7 +51,7 @@ export function TodoForm({
             id="title"
             label="Task title *"
             value={values.title}
-            onChange={(e) => change('title', e.target.value)}
+            onChange={(e) => change({ title: e.target.value })}
             placeholder="What would you like to do?"
             error={errors.title}
             required
@@ -64,7 +64,7 @@ export function TodoForm({
             label="Description (optional)"
             rows={3}
             value={values.description}
-            onChange={(e) => change('description', e.target.value)}
+            onChange={(e) => change({ description: e.target.value })}
             placeholder="Details worth remembering…"
             error={errors.description}
           />
@@ -75,7 +75,10 @@ export function TodoForm({
               id="priority"
               label="Priority"
               value={values.priority}
-              onChange={(e) => change('priority', e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value
+                if (isPriority(value)) change({ priority: value })
+              }}
               options={Object.entries(priorityLabels).map(([value, label]) => ({
                 value,
                 label,
@@ -88,7 +91,7 @@ export function TodoForm({
               label="Due date (optional)"
               type="date"
               value={values.due_date ?? ''}
-              onChange={(e) => change('due_date', e.target.value || null)}
+              onChange={(e) => change({ due_date: e.target.value || null })}
               error={errors.due_date}
             />
           </div>
