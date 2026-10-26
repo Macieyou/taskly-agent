@@ -38,6 +38,15 @@ export default defineConfig([
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-unsafe-type-assertion': 'error',
       '@typescript-eslint/no-non-null-assertion': 'error',
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector:
+            'VariableDeclarator[definite=true], PropertyDefinition[definite=true]',
+          message:
+            'Initialize the value or narrow it at runtime instead of using definite assignment assertions.',
+        },
+      ],
       '@typescript-eslint/no-empty-object-type': [
         'error',
         { allowInterfaces: 'with-single-extends' },

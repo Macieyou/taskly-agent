@@ -31,7 +31,11 @@ export function validateTestIntegrity(file, content, original) {
   const visit = (node) => {
     if (node.kind === ts.SyntaxKind.AnyKeyword)
       throw new Error('Generated tests must not use any')
-    if (ts.isNonNullExpression(node))
+    if (
+      ts.isNonNullExpression(node) ||
+      ((ts.isVariableDeclaration(node) || ts.isPropertyDeclaration(node)) &&
+        node.exclamationToken)
+    )
       throw new Error('Generated tests must narrow nullable values')
     if (
       (ts.isAsExpression(node) || ts.isTypeAssertionExpression(node)) &&

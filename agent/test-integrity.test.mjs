@@ -39,6 +39,7 @@ test('rejects type-check bypasses but accepts const assertions and satisfies', (
     'const x = input as unknown as User; expect(x).toBeDefined();',
     'const x = <User>input; expect(x).toBeDefined();',
     'expect(input!.id).toBe(1);',
+    'let value!: User; expect(value.id).toBe(1);',
   ]) {
     assert.throws(() => validateTestIntegrity('x.test.ts', content))
   }

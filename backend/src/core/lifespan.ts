@@ -2,6 +2,7 @@ import type { Server } from 'node:http'
 import { createDatabase, initialize } from './database.js'
 import { resolveDatabaseUrl } from './config.js'
 import { createApp } from '../factory.js'
+import { createShutdownHandler } from './shutdown.js'
 
 export async function start() {
   const database = createDatabase(resolveDatabaseUrl())
@@ -20,19 +21,7 @@ export async function start() {
     const address = server.address()
     if (address !== null && typeof address !== 'string')
       console.log(`Taskly App Node API listening on port ${address.port}`)
-    const shutdown = () => {
-      const timeout = setTimeout(() => process.exit(1), 10000)
-      timeout.unref()
-      server.close(() => {
-        void database
-          .$disconnect()
-          .catch((error: unknown) => {
-            console.error(error)
-            process.exitCode = 1
-          })
-          .finally(() => clearTimeout(timeout))
-      })
-    }
+    const shutdown = createShutdownHandler(server, () => database.$disconnect())
     process.once('SIGTERM', shutdown)
     process.once('SIGINT', shutdown)
     return { server, database }
