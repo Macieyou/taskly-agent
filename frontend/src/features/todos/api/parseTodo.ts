@@ -1,5 +1,5 @@
 import type { Todo } from '../types'
-import { isCalendarDate } from '../utils/todos'
+import { isCalendarDate, isPriority } from '../utils/todos'
 
 const invalidResponse =
   'The server returned invalid task data. Please try again.'
@@ -21,9 +21,7 @@ function isTodo(value: unknown): value is Todo {
     'description' in value &&
     typeof value.description === 'string' &&
     'priority' in value &&
-    (value.priority === 'low' ||
-      value.priority === 'medium' ||
-      value.priority === 'high') &&
+    isPriority(value.priority) &&
     'completed' in value &&
     typeof value.completed === 'boolean' &&
     'due_date' in value &&
