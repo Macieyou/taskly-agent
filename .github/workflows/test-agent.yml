@@ -36,7 +36,13 @@ jobs:
         run: |
           [[ "$PR_HEAD" =~ ^[a-f0-9]{40}$ ]] || exit 1
           git fetch --no-tags origin "$PR_HEAD"
+      - name: Classify the latest PR update
+        id: update
+        env:
+          PR_HEAD: ${{ github.event.pull_request.head.sha }}
+        run: node agent/check-update.mjs
       - name: Check configured Gemini model
+        if: steps.update.outputs.documentation_only != 'true'
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           AGENT_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.1-flash-lite' }}
