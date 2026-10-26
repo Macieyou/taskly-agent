@@ -1,10 +1,9 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import { renderWithTheme as render } from '../../../test/renderWithTheme'
 import userEvent from '@testing-library/user-event'
 import { expect, it, vi } from 'vitest'
 import { todoFixture } from '../../../test/todoFixture'
 import { TodoItem } from './TodoItem'
-
-vi.mock('../../../design-system', () => import('../../../design-system/mocks'))
 
 it('shows an active task and forwards edit requests', async () => {
   const user = userEvent.setup()

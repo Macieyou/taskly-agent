@@ -3,7 +3,10 @@ import { createDatabase } from '../src/core/database.ts'
 import { TodoRepository } from '../src/features/todos/repository.ts'
 import { record, todo } from './fixture.ts'
 
-afterEach(() => vi.restoreAllMocks())
+afterEach(() => {
+  vi.restoreAllMocks()
+  vi.useRealTimers()
+})
 
 function setup() {
   // Construct the real Prisma delegate, but mock its IO: no PostgreSQL is needed.
@@ -57,6 +60,9 @@ it.each(['2026-10-15', null])(
 )
 
 it('updates fields without clearing an omitted due date', async () => {
+  vi.useFakeTimers()
+  const now = new Date('2026-10-26T12:00:00Z')
+  vi.setSystemTime(now)
   const { database, repository } = setup()
   const update = vi
     .spyOn(database.todo, 'updateManyAndReturn')
@@ -70,7 +76,7 @@ it('updates fields without clearing an omitted due date', async () => {
     data: {
       completed: true,
       due_date: undefined,
-      updated_at: expect.any(Date) as unknown,
+      updated_at: now,
     },
   })
 })

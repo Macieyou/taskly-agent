@@ -1,9 +1,8 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import { renderWithTheme as render } from '../../../test/renderWithTheme'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import { TodoForm } from './TodoForm'
-
-vi.mock('../../../design-system', () => import('../../../design-system/mocks'))
 
 describe('TodoForm', () => {
   it('rejects a whitespace-only title without submitting', async () => {

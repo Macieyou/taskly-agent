@@ -1,14 +1,11 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { expect, it, vi } from 'vitest'
+import { renderWithTheme } from '../../../test/renderWithTheme'
 import { TodoList } from './TodoList'
 
-vi.mock('../../../design-system', () => import('../../../design-system/mocks'))
-vi.mock('./TodoEmptyState', () => ({
-  TodoEmptyState: () => <p>Empty task list</p>,
-}))
-vi.mock('./TodoItem', () => ({ TodoItem: () => <li>Task</li> }))
-
-it('shows loading feedback before showing an empty list', () => {
+it('shows loading feedback before allowing creation from an empty list', async () => {
+  const user = userEvent.setup()
   const props = {
     todos: [],
     hasTodos: false,
@@ -19,10 +16,13 @@ it('shows loading feedback before showing an empty list', () => {
     onEdit: vi.fn(),
     onDelete: vi.fn(),
   }
-  const { rerender } = render(<TodoList {...props} loading />)
+  const { rerender } = renderWithTheme(<TodoList {...props} loading />)
   expect(screen.getByRole('status')).toHaveTextContent('Loading your tasks…')
-  expect(screen.queryByText('Empty task list')).not.toBeInTheDocument()
+  expect(
+    screen.queryByRole('button', { name: 'Add your first task' }),
+  ).not.toBeInTheDocument()
   rerender(<TodoList {...props} loading={false} />)
   expect(screen.queryByRole('status')).not.toBeInTheDocument()
-  expect(screen.getByText('Empty task list')).toBeVisible()
+  await user.click(screen.getByRole('button', { name: 'Add your first task' }))
+  expect(props.onCreate).toHaveBeenCalledTimes(1)
 })

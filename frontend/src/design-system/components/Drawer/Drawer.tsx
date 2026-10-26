@@ -16,8 +16,8 @@ export function Drawer({
   const ref = useRef<HTMLDialogElement>(null)
   const titleId = useId()
   useLayoutEffect(() => {
-    const dialog = ref.current!
-    if (!isOpen) return
+    const dialog = ref.current
+    if (!isOpen || !dialog) return
     const opener = document.activeElement
     dialog.showModal()
     const field = dialog.querySelector<HTMLElement>(

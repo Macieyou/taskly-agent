@@ -1,9 +1,8 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import { renderWithTheme as render } from '../../../test/renderWithTheme'
 import userEvent from '@testing-library/user-event'
 import { expect, it, vi } from 'vitest'
 import { TodosHeader } from './TodosHeader'
-
-vi.mock('../../../design-system', () => import('../../../design-system/mocks'))
 
 it('invokes creation when enabled and blocks it when disabled', async () => {
   const user = userEvent.setup()

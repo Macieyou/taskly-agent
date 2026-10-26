@@ -29,7 +29,11 @@ export function TodoFilters({
       <Select
         label="Status"
         value={filter}
-        onChange={(event) => onFilterChange(event.target.value as Filter)}
+        onChange={(event) => {
+          const value = event.target.value
+          if (value === 'all' || value === 'active' || value === 'completed')
+            onFilterChange(value)
+        }}
         options={[
           { value: 'all', label: 'All statuses' },
           { value: 'active', label: 'To do' },
@@ -39,7 +43,11 @@ export function TodoFilters({
       <Select
         label="Sort by"
         value={sort}
-        onChange={(event) => onSortChange(event.target.value as Sort)}
+        onChange={(event) => {
+          const value = event.target.value
+          if (value === 'newest' || value === 'priority' || value === 'due')
+            onSortChange(value)
+        }}
         options={[
           { value: 'newest', label: 'Newest' },
           { value: 'priority', label: 'Priority' },

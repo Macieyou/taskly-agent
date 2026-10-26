@@ -4,7 +4,10 @@ import { AppProviders } from './app/AppProviders'
 import App from './App'
 import './styles.css'
 
-createRoot(document.getElementById('root')!).render(
+const root = document.getElementById('root')
+if (!root) throw new Error('Application root element is missing')
+
+createRoot(root).render(
   <StrictMode>
     <AppProviders>
       <App />

@@ -1,5 +1,4 @@
 import type { Server } from 'node:http'
-import type { AddressInfo } from 'node:net'
 import { createDatabase, initialize } from './database.js'
 import { resolveDatabaseUrl } from './config.js'
 import { createApp } from '../factory.js'
@@ -18,9 +17,9 @@ export async function start() {
       )
       listener.once('error', reject)
     })
-    console.log(
-      `Taskly App Node API listening on port ${(server.address() as AddressInfo).port}`,
-    )
+    const address = server.address()
+    if (address !== null && typeof address !== 'string')
+      console.log(`Taskly App Node API listening on port ${address.port}`)
     const shutdown = () => {
       const timeout = setTimeout(() => process.exit(1), 10000)
       timeout.unref()

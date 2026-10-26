@@ -32,8 +32,8 @@ it('validates trimmed length boundaries', () => {
       description: 'x'.repeat(2001),
     }),
   ).toEqual({
-    title: expect.any(String) as unknown,
-    description: expect.any(String) as unknown,
+    title: 'The title must be at most 120 characters.',
+    description: 'The description must be at most 2000 characters.',
   })
 })
 it('sorts by priority and breaks ties without mutating input', () => {
