@@ -7,19 +7,27 @@ export async function request<T>(path: string, init?: RequestInit): Promise<T> {
     })
   } catch (error) {
     if (init?.signal?.aborted) throw error
-    throw new Error('Cannot connect to the server. Please try again.')
+    throw new Error('Cannot connect to the server. Please try again.', {
+      cause: error,
+    })
   }
   if (!response.ok) {
-    const body = await response.json().catch(() => null)
+    const body: unknown = await response.json().catch(() => null)
     if (response.status === 422)
       throw new Error(
         'Check the task details: title up to 120 characters, description up to 2000 characters, and a valid due date.',
       )
     throw new Error(
-      typeof body?.detail === 'string'
+      typeof body === 'object' &&
+        body !== null &&
+        'detail' in body &&
+        typeof body.detail === 'string'
         ? body.detail
         : 'The operation failed. Please try again.',
     )
   }
-  return response.status === 204 ? (undefined as T) : response.json()
+  if (response.status === 204) return undefined as T
+  const body: unknown = await response.json()
+  // Endpoint callers supply the response contract; JSON is untrusted until this boundary.
+  return body as T
 }

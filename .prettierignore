@@ -1,0 +1,8 @@
+**/node_modules/
+**/dist/
+**/coverage/
+**/storybook-static/
+backend/src/generated/
+**/package-lock.json
+agent-output/
+docs/evidence/

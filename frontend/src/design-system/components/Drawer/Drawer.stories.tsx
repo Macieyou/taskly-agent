@@ -13,7 +13,7 @@ export default meta
 type Story = StoryObj<typeof Drawer>
 
 export const Default: Story = {
-  render: () => {
+  render: function DefaultDrawer() {
     const [open, setOpen] = useState(true)
     return (
       <>

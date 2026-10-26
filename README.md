@@ -24,6 +24,20 @@ Application: http://localhost:8080. API: http://localhost:8000/docs.
 docker compose down
 ```
 
+## Code quality
+
+From the repository root, install the shared tools and package types:
+
+```sh
+npm ci
+npm ci --prefix frontend
+npm ci --prefix backend
+npm run lint
+npm run format:check
+```
+
+`npm run lint:fix` applies ESLint's automatic fixes; `npm run format` formats frontend, backend and agent files with the shared Prettier configuration. ESLint uses type-aware TypeScript rules, React hook rules and recommended JavaScript rules for the agent. CI rejects lint errors or warnings and formatting differences. Generated Prisma files, build output, coverage and archived evidence are excluded from formatting/linting.
+
 ## Frontend
 
 React + TypeScript + Vite. Tests: Vitest + React Testing Library.

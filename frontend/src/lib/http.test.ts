@@ -43,13 +43,11 @@ it('handles an invalid error body', async () => {
   await expect(request('/todos')).rejects.toThrow('The operation failed.')
 })
 it('explains network failures', async () => {
-  vi.stubGlobal(
-    'fetch',
-    vi.fn().mockRejectedValue(new TypeError('Failed to fetch')),
-  )
-  await expect(request('/todos')).rejects.toThrow(
-    'Cannot connect to the server.',
-  )
+  const failure = new TypeError('Failed to fetch')
+  vi.stubGlobal('fetch', vi.fn().mockRejectedValue(failure))
+  const result = request('/todos')
+  await expect(result).rejects.toThrow('Cannot connect to the server.')
+  await expect(result).rejects.toHaveProperty('cause', failure)
 })
 it('preserves cancellation errors so callers can distinguish them', async () => {
   const controller = new AbortController()
