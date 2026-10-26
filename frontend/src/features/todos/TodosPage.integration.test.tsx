@@ -46,7 +46,7 @@ afterAll(() => server.close())
 function renderPage() {
   return renderWithProviders(<TodosPage />)
 }
-it('creates, edits, completes and deletes tasks through real components and query hooks', async () => {
+it('creates and edits a task through real components and query hooks', async () => {
   const user = userEvent.setup()
   renderPage()
   await screen.findByRole('heading', { name: 'Prepare a demo' })
@@ -73,6 +73,16 @@ it('creates, edits, completes and deletes tasks through real components and quer
   await waitFor(() =>
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument(),
   )
+  expect(
+    screen.getByRole('heading', { name: 'Prepare a demo' }),
+  ).toBeInTheDocument()
+})
+
+it('completes and deletes a task without changing its neighbor', async () => {
+  todos = [todoFixture, { ...todoFixture, id: 20, title: 'Reviewed tests' }]
+  const user = userEvent.setup()
+  renderPage()
+  await screen.findByRole('heading', { name: 'Reviewed tests' })
   await user.click(
     screen.getByRole('checkbox', { name: 'Complete: Reviewed tests' }),
   )
